@@ -1,14 +1,144 @@
-# Drizzle ORM Setup
+# Drizzle ORM Setup for Next.js with TypeScript
 
-This directory contains the Drizzle ORM configuration and schema files for the credit cards application.
+This directory contains a complete Drizzle ORM setup for PostgreSQL with Next.js and TypeScript, featuring proper schema design, type safety, and database management tools.
 
-## Files Overview
+## 📁 File Structure
 
-- `drizzle.config.ts` - Drizzle Kit configuration file
-- `schema.ts` - Database schema definitions using Drizzle ORM
-- `db.ts` - Database connection and Drizzle instance
-- `queries.ts` - Example queries and database operations
-- `migrations/` - Generated SQL migration files
+```
+src/drizzle/
+├── README.md           # This documentation
+├── db.ts              # Database connection and configuration
+├── schema.ts          # Database schema definitions
+├── types.ts           # TypeScript type definitions
+├── queries.ts         # Pre-built database queries
+├── test-db.ts         # Database testing script
+└── migrations/        # Database migration files
+    ├── 0000_*.sql     # Initial migration
+    ├── 0001_*.sql     # Schema updates migration
+    └── meta/          # Migration metadata
+```
+
+## 🚀 Features
+
+### ✅ Complete Schema Design
+- **8 Tables**: cards, categories, issuers, collaborators, employment, features, networks, news_updates
+- **Foreign Key Constraints**: Proper relationships between tables
+- **Indexes**: Optimized for common query patterns
+- **Data Validation**: NOT NULL constraints and unique constraints where appropriate
+
+### ✅ Type Safety
+- **Full TypeScript Integration**: Complete type definitions for all operations
+- **Inferred Types**: Automatic type inference from schema
+- **CRUD Types**: Separate types for Select, Insert, and Update operations
+- **Relation Types**: Types for joined queries and nested data
+
+### ✅ Connection Management
+- **Connection Pooling**: Configured PostgreSQL connection pool
+- **Error Handling**: Comprehensive error handling and logging
+- **Environment Validation**: Validates required environment variables
+- **Graceful Shutdown**: Proper connection cleanup
+
+### ✅ Developer Experience
+- **Database Testing**: Comprehensive test suite
+- **Migration Management**: Easy migration generation and execution
+- **Database Studio**: Visual database browser
+- **NPM Scripts**: Convenient database management commands
+
+## 🛠️ Setup Instructions
+
+### 1. Environment Configuration
+
+Copy the example environment file and configure your database:
+
+```bash
+cp .env.example .env
+```
+
+Update the `.env` file with your PostgreSQL connection details:
+
+```env
+DATABASE_URL="postgresql://username:password@localhost:5432/your_database"
+API_BASE_URL="http://localhost:3000/api"
+API_VERSION="v1"
+API_KEY="your-secret-api-key"
+```
+
+### 2. Database Migration
+
+Run the migrations to create your database schema:
+
+```bash
+# Generate new migrations (if schema changes)
+pnpm db:generate
+
+# Apply migrations to database
+pnpm db:migrate
+
+# Or push schema directly (development only)
+pnpm db:push
+```
+
+### 3. Test the Setup
+
+Run the comprehensive test suite to verify everything is working:
+
+```bash
+pnpm db:test
+```
+
+## 🔧 Available Scripts
+
+```bash
+# Database Management
+pnpm db:generate    # Generate new migrations
+pnpm db:migrate     # Apply migrations
+pnpm db:push        # Push schema directly (dev only)
+pnpm db:studio      # Open Drizzle Studio
+pnpm db:test        # Run database tests
+```
+
+## 💻 Usage Examples
+
+### Basic Queries
+
+```typescript
+import { db } from '@/drizzle/db';
+import { cards, issuers } from '@/drizzle/schema';
+import { eq } from 'drizzle-orm';
+
+// Get all cards
+const allCards = await db.select().from(cards);
+
+// Get cards with issuer information
+const cardsWithIssuers = await db
+  .select({
+    id: cards.id,
+    name: cards.name,
+    issuer: {
+      id: issuers.id,
+      name: issuers.name
+    }
+  })
+  .from(cards)
+  .leftJoin(issuers, eq(cards.issuerId, issuers.id));
+```
+
+### Type-Safe Operations
+
+```typescript
+import type { NewCard, UpdateCard } from '@/drizzle/types';
+
+// Create new card (type-safe)
+const newCard: NewCard = {
+  name: 'Premium Rewards Card',
+  issuerId: 'issuer-uuid',
+  isDiscontinued: false
+};
+
+const [created] = await db.insert(cards).values(newCard).returning();
+```
+
+**✨ Your Drizzle ORM setup is now complete and ready for production use!**
 
 ## Setup Complete
 

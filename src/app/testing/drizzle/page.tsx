@@ -1,16 +1,20 @@
 import DrizzleExample from '@/components/discovery/DrizzleExample'
 import { getAllCardsWithDrizzle, getAllCategories, getAllIssuers } from '@/drizzle/queries'
 
-export default async function DrizzleTestPage() {
-  // Fetch data on the server side
-  const [cards, categories, issuers] = await Promise.all([
-    getAllCardsWithDrizzle(),
-    getAllCategories(),
-    getAllIssuers()
-  ]);
+// Force dynamic rendering to prevent database calls during build
+export const dynamic = 'force-dynamic'
 
-  // Mock cardsWithIssuer for now since we don't have that query
-  const cardsWithIssuer = cards;
+export default async function DrizzleTestPage() {
+  try {
+    // Fetch data on the server side
+    const [cards, categories, issuers] = await Promise.all([
+      getAllCardsWithDrizzle(),
+      getAllCategories(),
+      getAllIssuers()
+    ]);
+
+    // Mock cardsWithIssuer for now since we don't have that query
+    const cardsWithIssuer = cards;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -66,4 +70,26 @@ export default async function DrizzleTestPage() {
       </div>
     </div>
   );
+  } catch (error) {
+    console.error('Database connection error:', error);
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto py-8">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-red-600 mb-4">
+              Database Connection Error
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Unable to connect to the database. Please ensure your database is running and the DATABASE_URL is correctly configured.
+            </p>
+            <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-700">
+                Error: {error instanceof Error ? error.message : 'Unknown database error'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
