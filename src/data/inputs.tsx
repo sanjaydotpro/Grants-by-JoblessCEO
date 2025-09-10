@@ -1,0 +1,116 @@
+import {
+  OrganisedTags,
+  Card,
+  SingleCardCategory,
+  SingleTag,
+} from "@/types/index";
+import {
+  TbPlaneDeparture,
+  TbShoppingBag,
+  TbGlobeFilled,
+  TbGasStation,
+  TbBriefcase,
+  TbSalad,
+  TbDeviceTvOld,
+  TbBackpack,
+  TbReceipt,
+  TbActivityHeartbeat,
+} from "react-icons/tb";
+
+const allCategories: SingleTag[] = [
+  {
+    id: "97165ad7-8148-4c57-a85e-74e6d211b3b6",
+    href: "/discover/credit-cards?category=travel",
+    description: "Save on airport lounges, spas and hotels.",
+    IconName: TbPlaneDeparture,
+    value: "travel",
+    label: "Travel",
+    filter: "category",
+  },
+  {
+    value: "international",
+    label: "International",
+    id: "713895f5-4e8a-40c8-8451-3b67fbafd249",
+    filter: "category",
+    href: "/discover/credit-cards?category=international",
+    description: "Low forex markup, higher reward rates.",
+    IconName: TbGlobeFilled,
+  },
+
+  {
+    value: "fuel",
+    label: "Fuel",
+    id: "eaba5390-87ff-4ad7-9a7b-e998309da16a",
+    filter: "category",
+    href: "/discover/credit-cards?category=fuel",
+    description: "Save up everytime you fill up the tank.",
+    IconName: TbGasStation,
+  },
+  {
+    value: "shopping",
+    label: "Shopping",
+    id: "10972795-1355-42ef-8553-feeb31377082",
+    filter: "category",
+    href: "/discover/credit-cards?category=shopping",
+    description: "Shop online or offline, get cashbacks & discounts.",
+    IconName: TbShoppingBag,
+  },
+  {
+    value: "business",
+    label: "Business",
+    id: "c2f8c254-c50c-46d8-bc5c-76d09bb3ac32",
+    filter: "category",
+    href: "/discover/credit-cards?category=business",
+    description: "Make business purchases & maximize profits.",
+    IconName: TbBriefcase,
+  },
+
+  {
+    value: "food",
+    label: "Food",
+    id: "9ccea987-4b99-4c64-96a4-ff8787ad22c2",
+    filter: "category",
+    href: "/discover/credit-cards?category=food",
+    description: "Eat without worrying about the bills.",
+    IconName: TbSalad,
+  },
+  {
+    value: "entertainment",
+    label: "Entertainment",
+    id: "cc3a2e23-6273-461a-b8d3-f59c8289b34d",
+    filter: "category",
+    href: "/discover/credit-cards?category=entertainment",
+    description: "Have fun to earn cashbacks & discounts.",
+    IconName: TbDeviceTvOld,
+  },
+
+  {
+    value: "bills",
+    label: "Bills",
+    id: "e8b9ff37-3d2c-4451-ab71-b4fb8cd03e36",
+    filter: "category",
+    href: "/discover/credit-cards?category=bills",
+    description: "Utilities and bill payments, sorted!",
+    IconName: TbReceipt,
+  },
+  {
+    value: "health",
+    label: "Health",
+    id: "c3e43dc4-c450-4f30-8550-de44d44dee7e",
+    filter: "category",
+    href: "/discover/credit-cards?category=health",
+    description: "Cards to take care of your health and wellness.",
+    IconName: TbActivityHeartbeat,
+  },
+  {
+    value: "student",
+    label: "Student",
+    id: "44a2971a-f1f2-47ed-a214-ad5ed5cbd3a6",
+    filter: "category",
+    href: "/discover/credit-cards?category=student",
+    description: "No income? No worries! Start building your credit.",
+    IconName: TbBackpack,
+  },
+];
+
+export { allCategories };
