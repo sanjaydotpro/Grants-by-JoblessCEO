@@ -184,7 +184,7 @@ export const fetchCards = async ({
 
   // Simplified return for now - TODO: Implement full Drizzle conversion
   return {
-    data: [],
+    data: [] as any[],
     totalResults: 0,
   };
 };

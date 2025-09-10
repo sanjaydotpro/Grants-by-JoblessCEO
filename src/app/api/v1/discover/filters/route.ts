@@ -16,11 +16,9 @@ const fetchAllFilters = async () => {
     .select({
       id: issuers.id,
       name: issuers.name,
-      short_form: issuers.shortForm,
-      display_name: issuers.displayName,
+      description: issuers.description,
     })
-    .from(issuers)
-    .where(eq(issuers.isAvailable, true));
+    .from(issuers);
 
   const featuresData = await db
     .select({
@@ -52,14 +50,14 @@ const fetchAllFilters = async () => {
 
   return {
     category: categoryData.map((category) => ({
-      value: snakeCase(category.name),
-      label: capitalizeFirstLetter(category.name),
+      value: snakeCase(category.name ?? ""),
+      label: capitalizeFirstLetter(category.name ?? ""),
       id: category.id,
       filter: "category",
     })),
     issuer: issuersData.map((issuer) => ({
-      value: snakeCase(issuer.name),
-      label: issuer.display_name,
+      value: snakeCase(issuer.name ?? ""),
+      label: issuer.name ?? "",
       id: issuer.id,
       filter: "issuer",
     })),
@@ -71,19 +69,19 @@ const fetchAllFilters = async () => {
     })),
     employment: employmentData.map((employment) => ({
       value: snakeCase(employment.name ?? ""),
-      label: employment.name,
+      label: employment.name ?? "",
       id: employment.id,
       filter: "employment",
     })),
     collaborator: collaboratorData.map((collaborator) => ({
       value: snakeCase(collaborator.name ?? ""),
-      label: collaborator.name,
+      label: collaborator.name ?? "",
       id: collaborator.id,
       filter: "collaborator",
     })),
     network: networkData.map((network) => ({
       value: snakeCase(network.name ?? ""),
-      label: network.name,
+      label: network.name ?? "",
       id: network.id,
       filter: "network",
     })),

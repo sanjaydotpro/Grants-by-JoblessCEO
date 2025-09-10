@@ -24,8 +24,7 @@ const fetchMatchingResults = async (query: string) => {
       or(
         ilike(cards.name, `%${query}%`),
         ilike(issuers.name, `%${query}%`),
-        ilike(issuers.shortForm, `%${query}%`),
-        ilike(issuers.displayName, `%${query}%`)
+        ilike(issuers.description, `%${query}%`)
       )
     );
 
@@ -55,11 +54,11 @@ const fetchMatchingResults = async (query: string) => {
 //create a get route with a query parameter of "query"
 export async function GET(
   req: Request,
-  { params }: { params: { query: string } }
+  { params }: { params: Promise<{ query: string }> }
 ) {
   try {
     //Fetch the slug from the url
-    const query = params.query;
+    const { query } = await params;
 
     //Fetch the cards data from db
     const cards = await fetchMatchingResults(query);

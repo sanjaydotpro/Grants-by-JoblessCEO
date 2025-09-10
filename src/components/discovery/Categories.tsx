@@ -61,7 +61,7 @@ function Categories() {
           variant={
             selectedTags?.some((tag) => tag.id === category.id)
               ? "default"
-              : "outline-solid"
+              : "outline"
           }
           className="rounded-full mr-1 mb-2"
           onClick={() => toggleSelection(category)}

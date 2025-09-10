@@ -25,14 +25,7 @@ export const categories = pgTable("categories", {
 export const issuers = pgTable("issuers", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name"),
-  shortForm: text("short_form"),
-  displayName: text("display_name"),
-  officialSite: text("official_site"),
-  ccMitc: text("cc_mitc"),
-  ccSoc: text("cc_soc"),
-  isAvailable: boolean("is_available").default(false),
-  availableRegions: json("available_regions").default('["all"]'),
-  country: text("country").default(""),
+  description: text("description"),
   createdAt: timestamp("created_at").defaultNow()
 });
 

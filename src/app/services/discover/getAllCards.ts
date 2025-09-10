@@ -142,7 +142,9 @@ export async function getAllCards({
       valueback: valueBackRange,
     });
 
-    const formattedCards: Card[] = fetchedCards.data.map((card) => ({
+    // Since fetchCards returns empty data for now, return empty array
+    // TODO: Implement proper card formatting when Drizzle queries are complete
+    const formattedCards: Card[] = fetchedCards.data.length > 0 ? fetchedCards.data.map((card: any) => ({
       id: card.id,
       name: card.name,
       image: card.image || "",
@@ -152,15 +154,15 @@ export async function getAllCards({
       issuer: (Array.isArray(card.issuer)
         ? card.issuer[0]
         : card.issuer) as Issuer,
-      categories: card.categories.map(
-        (category): Category => ({
+      categories: (card.categories || []).map(
+        (category: any): Category => ({
           id: category?.id || "",
           name: category?.name || "",
           description: category?.description || "",
         })
       ),
-      features: card.features.map(
-        (feature): Feature => ({
+      features: (card.features || []).map(
+        (feature: any): Feature => ({
           feature_id: feature?.feature_id || "",
           feature_name: feature?.feature_name || "",
           feature_category: feature?.feature_category || "",
@@ -176,7 +178,7 @@ export async function getAllCards({
       collaborator: card.collaborator as unknown as Collaborator | null,
       official_website: card.official_website || "",
       speciality: card.speciality,
-    }));
+    })) : [];
 
     //if cards is empty, return an error saying no results found
     if (fetchedCards.data == null) {

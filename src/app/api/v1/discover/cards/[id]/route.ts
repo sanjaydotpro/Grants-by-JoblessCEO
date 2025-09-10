@@ -5,14 +5,13 @@ import {
 import { eq } from "drizzle-orm";
 import { cards, issuers, collaborators } from "@/drizzle/schema";
 import db from "@/lib/helper/prismaClient";
-import { UUID } from "crypto";
 
 /**
  * Fetch a single card with "slug" query parameters.
- * @param {UUID} [slug] - slug of the card.
+ * @param {string} [slug] - slug of the card.
  */
 
-const fetchSingleCard = async (slug: UUID) => {
+const fetchSingleCard = async (slug: string) => {
   const cardsData = await db
     .select({
       id: cards.id,
@@ -28,11 +27,7 @@ const fetchSingleCard = async (slug: UUID) => {
       issuer: {
         id: issuers.id,
         name: issuers.name,
-        shortForm: issuers.shortForm,
-        displayName: issuers.displayName,
-        officialSite: issuers.officialSite,
-        isAvailable: issuers.isAvailable,
-        country: issuers.country
+        description: issuers.description
       },
       collaborator: {
         id: collaborators.id,
@@ -74,10 +69,13 @@ const fetchSingleCard = async (slug: UUID) => {
 };
 
 //create a get route with a query parameter of sortBy, sortOrder, pageNo, pageSize
-export async function GET(req: Request, { params }: { params: { id: UUID } }) {
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     //Fetch the slug from the url
-    const slug = params.id;
+    const { id: slug } = await params;
 
     const apiKey = req.headers.get("x-api-key") || "";
 
