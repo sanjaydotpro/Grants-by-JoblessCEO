@@ -3,51 +3,55 @@ import {
   validateSingleUUID,
 } from "@/lib/helper/miscFunctions";
 import { or, ilike, eq } from "drizzle-orm";
-import { cards, issuers } from "@/drizzle/schema";
-import db from "@/lib/helper/prismaClient";
+import { grants, institutions } from "@/drizzle/schema";
+import { db } from "@/drizzle/db";
 
 /**
- * Fetch a single card with "slug" query parameters.
- * @param {string} [query] - slug of the card.
+ * Fetch grants matching the search query.
+ * @param {string} [query] - search query for grants.
  */
 
 const fetchMatchingResults = async (query: string) => {
-  const cardsData = await db
+  const grantsData = await db
     .select({
-      id: cards.id,
-      name: cards.name,
-      image_link: cards.imageLink,
+      id: grants.id,
+      name: grants.name,
+      description: grants.description,
+      grantAmount: grants.grantAmount,
+      institutionName: institutions.name,
     })
-    .from(cards)
-    .leftJoin(issuers, eq(cards.issuerId, issuers.id))
+    .from(grants)
+    .leftJoin(institutions, eq(grants.institutionId, institutions.id))
     .where(
       or(
-        ilike(cards.name, `%${query}%`),
-        ilike(issuers.name, `%${query}%`),
-        ilike(issuers.description, `%${query}%`)
+        ilike(grants.name, `%${query}%`),
+        ilike(grants.description, `%${query}%`),
+        ilike(institutions.name, `%${query}%`)
       )
     );
 
-  cardsData.forEach(convertBigIntToString);
+  grantsData.forEach(convertBigIntToString);
 
-  //If 0 results are returned from database, return empty "cards" array
-  if (cardsData.length === 0) {
+  //If 0 results are returned from database, return empty "grants" array
+  if (grantsData.length === 0) {
     return {
-      cards: [],
+      grants: [],
       totalResults: 0,
     };
   }
 
   //Format the db results in the desired format
-  const formattedCards = cardsData.map((card) => ({
-    id: card.id,
-    name: card.name,
-    image: card.image_link,
+  const formattedGrants = grantsData.map((grant) => ({
+    id: grant.id,
+    name: grant.name,
+    description: grant.description,
+    grantAmount: grant.grantAmount,
+    institutionName: grant.institutionName,
   }));
 
   return {
-    cards: formattedCards,
-    totalResults: formattedCards.length,
+    grants: formattedGrants,
+    totalResults: formattedGrants.length,
   };
 };
 
@@ -60,16 +64,16 @@ export async function GET(
     //Fetch the slug from the url
     const { query } = await params;
 
-    //Fetch the cards data from db
-    const cards = await fetchMatchingResults(query);
+    //Fetch the grants data from db
+    const grants = await fetchMatchingResults(query);
 
-    if (cards.cards === null) {
+    if (grants.grants === null) {
       return Response.json({ error: "No results found." }, { status: 400 });
     }
-    return Response.json(cards, { status: 200 });
+    return Response.json(grants, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Error fetching the card, please try again later." },
+      { error: "Error fetching grants, please try again later." },
       { status: 500 }
     );
   }

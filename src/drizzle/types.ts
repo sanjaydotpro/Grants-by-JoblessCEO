@@ -1,78 +1,55 @@
 import { InferSelectModel, InferInsertModel } from "drizzle-orm";
 import {
-  cards,
-  categories,
-  issuers,
-  newsUpdates,
-  collaborators,
-  employment,
-  features,
-  networks
+  grants,
+  institutions
 } from "./schema";
 
 // Select types (for reading from database)
-export type Card = InferSelectModel<typeof cards>;
-export type Category = InferSelectModel<typeof categories>;
-export type Issuer = InferSelectModel<typeof issuers>;
-export type NewsUpdate = InferSelectModel<typeof newsUpdates>;
-export type Collaborator = InferSelectModel<typeof collaborators>;
-export type Employment = InferSelectModel<typeof employment>;
-export type Feature = InferSelectModel<typeof features>;
-export type Network = InferSelectModel<typeof networks>;
+export type Grant = InferSelectModel<typeof grants>;
+export type Institution = InferSelectModel<typeof institutions>;
 
 // Insert types (for creating new records)
-export type NewCard = InferInsertModel<typeof cards>;
-export type NewCategory = InferInsertModel<typeof categories>;
-export type NewIssuer = InferInsertModel<typeof issuers>;
-export type NewNewsUpdate = InferInsertModel<typeof newsUpdates>;
-export type NewCollaborator = InferInsertModel<typeof collaborators>;
-export type NewEmployment = InferInsertModel<typeof employment>;
-export type NewFeature = InferInsertModel<typeof features>;
-export type NewNetwork = InferInsertModel<typeof networks>;
+export type NewGrant = InferInsertModel<typeof grants>;
+export type NewInstitution = InferInsertModel<typeof institutions>;
 
 // Update types (for partial updates)
-export type UpdateCard = Partial<Omit<Card, 'id' | 'createdAt'>>;
-export type UpdateCategory = Partial<Omit<Category, 'id' | 'createdAt'>>;
-export type UpdateIssuer = Partial<Omit<Issuer, 'id' | 'createdAt'>>;
-export type UpdateNewsUpdate = Partial<Omit<NewsUpdate, 'id' | 'createdAt'>>;
-export type UpdateCollaborator = Partial<Omit<Collaborator, 'id' | 'createdAt'>>;
-export type UpdateEmployment = Partial<Omit<Employment, 'id' | 'createdAt'>>;
-export type UpdateFeature = Partial<Omit<Feature, 'id' | 'createdAt'>>;
-export type UpdateNetwork = Partial<Omit<Network, 'id' | 'createdAt'>>;
+export type UpdateGrant = Partial<Omit<Grant, 'id' | 'createdAt'>>;
+export type UpdateInstitution = Partial<Omit<Institution, 'id' | 'createdAt'>>;
 
 // Extended types with relations
-export type CardWithIssuer = Card & {
-  issuer: Issuer | null;
+export type GrantWithInstitution = Grant & {
+  institution: Institution;
 };
 
-export type CardWithCollaborator = Card & {
-  collaborator: Collaborator | null;
-};
-
-export type CardWithRelations = Card & {
-  issuer: Issuer | null;
-  collaborator: Collaborator | null;
-};
-
-export type IssuerWithCards = Issuer & {
-  cards: Card[];
-};
-
-export type CollaboratorWithCards = Collaborator & {
-  cards: Card[];
+export type InstitutionWithGrants = Institution & {
+  grants: Grant[];
 };
 
 // Search and filter types
-export type CardSearchParams = {
+export type GrantSearchParams = {
   name?: string;
-  issuerId?: string;
-  collaboratorId?: string;
-  isDiscontinued?: boolean;
+  institutionId?: string;
+  minAmount?: number;
+  maxAmount?: number;
+  website?: string;
+  description?: string;
   limit?: number;
   offset?: number;
 };
 
-export type CardSortOptions = {
+export type InstitutionSearchParams = {
+  name?: string;
+  website?: string;
+  limit?: number;
+  offset?: number;
+};
+
+export type GrantSortOptions = {
+  field: 'name' | 'amount' | 'createdAt' | 'updatedAt';
+  direction: 'asc' | 'desc';
+};
+
+export type InstitutionSortOptions = {
   field: 'name' | 'createdAt' | 'updatedAt';
   direction: 'asc' | 'desc';
 };
@@ -139,12 +116,6 @@ export type ConnectionStatus = {
 
 // Export all schema tables for type inference
 export {
-  cards,
-  categories,
-  issuers,
-  newsUpdates,
-  collaborators,
-  employment,
-  features,
-  networks
+  grants,
+  institutions
 } from "./schema";

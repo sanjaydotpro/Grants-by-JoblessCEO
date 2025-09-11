@@ -1,11 +1,11 @@
 {
-  "id": "8e0181ed-7f27-4cba-a0ab-596f855ae0b4",
+  "id": "88942f5c-2013-4d78-921d-80b070df34b8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.cards": {
-      "name": "cards",
+    "public.grants": {
+      "name": "grants",
       "schema": "",
       "columns": {
         "id": {
@@ -19,70 +19,132 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "native_currency_id": {
-          "name": "native_currency_id",
+        "institution_id": {
+          "name": "institution_id",
           "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "grant_amount": {
+          "name": "grant_amount",
+          "type": "real",
           "primaryKey": false,
           "notNull": false
         },
-        "image_link": {
-          "name": "image_link",
+        "website": {
+          "name": "website",
           "type": "text",
           "primaryKey": false,
           "notNull": false
         },
-        "issuer_id": {
-          "name": "issuer_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "collaborator_id": {
-          "name": "collaborator_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "official_link": {
-          "name": "official_link",
+        "description": {
+          "name": "description",
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "is_discontinued": {
-          "name": "is_discontinued",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
         },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         }
       },
-      "indexes": {},
-      "foreignKeys": {},
+      "indexes": {
+        "grants_name_idx": {
+          "name": "grants_name_idx",
+          "columns": [
+            {
+              "expression": "name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "grants_institution_idx": {
+          "name": "grants_institution_idx",
+          "columns": [
+            {
+              "expression": "institution_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "grants_amount_idx": {
+          "name": "grants_amount_idx",
+          "columns": [
+            {
+              "expression": "grant_amount",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "grants_created_at_idx": {
+          "name": "grants_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "grants_institution_id_institutions_id_fk": {
+          "name": "grants_institution_id_institutions_id_fk",
+          "tableFrom": "grants",
+          "tableTo": "institutions",
+          "columnsFrom": [
+            "institution_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.categories": {
-      "name": "categories",
+    "public.institutions": {
+      "name": "institutions",
       "schema": "",
       "columns": {
         "id": {
@@ -96,10 +158,10 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "description": {
-          "name": "description",
+        "website": {
+          "name": "website",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -108,11 +170,34 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "institutions_name_idx": {
+          "name": "institutions_name_idx",
+          "columns": [
+            {
+              "expression": "name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -120,8 +205,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.issuers": {
-      "name": "issuers",
+    "public.news_updates": {
+      "name": "news_updates",
       "schema": "",
       "columns": {
         "id": {
@@ -131,27 +216,59 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "name": {
-          "name": "name",
+        "content": {
+          "name": "content",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "description": {
-          "name": "description",
+        "type": {
+          "name": "type",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "'news'"
         },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "news_updates_type_idx": {
+          "name": "news_updates_type_idx",
+          "columns": [
+            {
+              "expression": "type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "news_updates_created_at_idx": {
+          "name": "news_updates_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},

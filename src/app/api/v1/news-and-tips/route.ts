@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { capitalizeFirstLetter, snakeCase } from "@/lib/helper/miscFunctions";
 import { eq, desc } from "drizzle-orm";
 import { newsUpdates } from "@/drizzle/schema";
-import db from "@/lib/helper/prismaClient";
+import { db } from "@/drizzle/db";
 
 const fetchAllNewsAndTips = async () => {
   const newsData = await db
@@ -36,6 +36,12 @@ const fetchAllNewsAndTips = async () => {
 };
 
 export async function GET() {
+  // Skip database operations during build to prevent native binding issues
+  // Only skip during actual build phase, not during development or production runtime
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json([], { status: 200 });
+  }
+  
   try {
     const newsAndTips = await fetchAllNewsAndTips();
     return NextResponse.json(newsAndTips["notification"], { status: 200 });

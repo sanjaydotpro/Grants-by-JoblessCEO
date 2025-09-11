@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
 
 import { db, validateDatabaseConnection, closeDatabaseConnection } from './db';
-import { cards, issuers, collaborators, categories, newsUpdates, employment, features, networks } from './schema';
-import type { NewCard, NewIssuer, NewCollaborator } from './types';
+import { institutions, grants, newsUpdates } from './schema';
+import type { NewGrant, NewInstitution } from './types';
 import { eq } from 'drizzle-orm';
 
 /**
@@ -109,7 +109,7 @@ async function testDatabaseSetup() {
       .update(cards)
       .set({ 
         name: 'Updated Test Rewards Card',
-        updatedAt: new Date()
+        updatedAt: new Date().toISOString()
       })
       .where(eq(cards.id, createdCard.id))
       .returning();

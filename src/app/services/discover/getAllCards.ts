@@ -189,7 +189,7 @@ export async function getAllCards({
     } else {
       return {
         data: formattedCards,
-        totalResults: fetchedCards.totalResults,
+        totalResults: Number(fetchedCards.pagination.total),
       };
     }
   } catch (error) {

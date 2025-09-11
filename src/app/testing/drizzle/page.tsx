@@ -1,40 +1,34 @@
 import DrizzleExample from '@/components/discovery/DrizzleExample'
-import { getAllCardsWithDrizzle, getAllCategories, getAllIssuers } from '@/drizzle/queries'
+import { getAllGrants, getAllInstitutions, getGrantsWithInstitution } from '@/drizzle/queries'
 
 // Force dynamic rendering to prevent database calls during build
 export const dynamic = 'force-dynamic'
 
 export default async function DrizzleTestPage() {
   try {
-    // Fetch data on the server side
-    const [cards, categories, issuers] = await Promise.all([
-      getAllCardsWithDrizzle(),
-      getAllCategories(),
-      getAllIssuers()
-    ]);
+    // Fetch data from the database
+    const grants = await getAllGrants();
+    const institutions = await getAllInstitutions();
+    const grantsWithInstitutions = await getGrantsWithInstitution();
 
-    // Mock cardsWithIssuer for now since we don't have that query
-    const cardsWithIssuer = cards;
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto py-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            Drizzle ORM Integration Test
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            This page demonstrates the successful integration of Drizzle ORM alongside 
-            the existing Prisma setup. All queries are type-safe and performant.
-          </p>
-        </div>
-        
-        <DrizzleExample 
-          cards={cards}
-          cardsWithIssuer={cardsWithIssuer}
-          categories={categories}
-          issuers={issuers}
-        />
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto py-8">
+          <div className="mb-8 text-center">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Drizzle ORM Integration Test - Grants System
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              This page demonstrates the successful integration of Drizzle ORM alongside 
+              the existing Prisma setup. All queries are type-safe and performant.
+            </p>
+          </div>
+          
+          <DrizzleExample 
+            grants={grants}
+            institutions={institutions}
+            grantsWithInstitutions={grantsWithInstitutions}
+          />
         
         <div className="mt-12 bg-white border border-gray-200 rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">🔗 Integration Status</h2>

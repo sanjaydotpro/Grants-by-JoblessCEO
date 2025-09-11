@@ -1,148 +1,277 @@
-import { db } from './db';
-import { cards, categories, issuers } from './schema';
-import { eq, like, and, desc } from 'drizzle-orm';
+import { db } from "./db";
+import { grants, institutions } from "./schema";
+import { eq, like, ilike, and, or, desc, asc, gte, lte } from "drizzle-orm";
+import type { 
+  Grant, 
+  Institution, 
+  GrantWithInstitution,
+  GrantSearchParams,
+  GrantSortOptions,
+  InstitutionSearchParams,
+  InstitutionSortOptions 
+} from "./types";
 
-// Example queries using Drizzle ORM
+// ============================================================================
+// GRANT QUERIES
+// ============================================================================
 
-// Get all cards
-export async function getAllCardsWithDrizzle() {
-  try {
-    const result = await db.select().from(cards);
-    return result;
-  } catch (error) {
-    console.error('Error fetching cards:', error);
-    throw error;
-  }
+/**
+ * Get all grants
+ */
+export async function getAllGrants(): Promise<Grant[]> {
+  return await db.select().from(grants).orderBy(desc(grants.createdAt));
 }
 
-// Get cards with issuer information
-export async function getCardsWithIssuer() {
-  try {
-    const result = await db
-      .select({
-        id: cards.id,
-        name: cards.name,
-        imageLink: cards.imageLink,
-        officialLink: cards.officialLink,
-        isDiscontinued: cards.isDiscontinued,
-        issuer: {
-          id: issuers.id,
-          name: issuers.name,
-          description: issuers.description,
-        },
-      })
-      .from(cards)
-      .leftJoin(issuers, eq(cards.issuerId, issuers.id))
-      .where(eq(cards.isDiscontinued, false))
-      .orderBy(desc(cards.createdAt));
-    
-    return result;
-  } catch (error) {
-    console.error('Error fetching cards with issuer:', error);
-    throw error;
-  }
+/**
+ * Get grant by ID
+ */
+export async function getGrantById(id: string): Promise<Grant | null> {
+  const result = await db.select().from(grants).where(eq(grants.id, id)).limit(1);
+  return result[0] || null;
 }
 
-// Search cards by name
-export async function searchCardsByName(searchTerm: string) {
-  try {
-    const result = await db
+/**
+ * Get grants with institution information
+ */
+export async function getGrantsWithInstitution(): Promise<GrantWithInstitution[]> {
+  return await db
+    .select({
+      id: grants.id,
+      name: grants.name,
+      institutionId: grants.institutionId,
+      grantAmount: grants.grantAmount,
+      website: grants.website,
+      description: grants.description,
+      createdAt: grants.createdAt,
+      updatedAt: grants.updatedAt,
+      institution: {
+        id: institutions.id,
+        name: institutions.name,
+        website: institutions.website,
+        createdAt: institutions.createdAt,
+        updatedAt: institutions.updatedAt
+      }
+    })
+    .from(grants)
+    .innerJoin(institutions, eq(grants.institutionId, institutions.id))
+    .orderBy(desc(grants.createdAt));
+}
+
+/**
+ * Search grants with filters
+ */
+export async function searchGrants(params: GrantSearchParams): Promise<Grant[]> {
+  const { name, institutionId, minAmount, maxAmount, website, description, limit = 50, offset = 0 } = params;
+  
+  const conditions = [];
+  
+  if (name) {
+    conditions.push(ilike(grants.name, `%${name}%`));
+  }
+  
+  if (institutionId) {
+    conditions.push(eq(grants.institutionId, institutionId));
+  }
+  
+  if (minAmount !== undefined) {
+    conditions.push(gte(grants.grantAmount, minAmount));
+  }
+  
+  if (maxAmount !== undefined) {
+    conditions.push(lte(grants.grantAmount, maxAmount));
+  }
+  
+  if (website) {
+    conditions.push(ilike(grants.website, `%${website}%`));
+  }
+  
+  if (description) {
+    conditions.push(ilike(grants.description, `%${description}%`));
+  }
+  
+  if (conditions.length > 0) {
+    return await db
       .select()
-      .from(cards)
-      .where(
-        and(
-          like(cards.name, `%${searchTerm}%`),
-          eq(cards.isDiscontinued, false)
-        )
-      );
-    
-    return result;
-  } catch (error) {
-    console.error('Error searching cards:', error);
-    throw error;
+      .from(grants)
+      .where(and(...conditions))
+      .orderBy(desc(grants.createdAt))
+      .limit(limit)
+      .offset(offset);
   }
+  
+  return await db
+    .select()
+    .from(grants)
+    .orderBy(desc(grants.createdAt))
+    .limit(limit)
+    .offset(offset);
 }
 
-// Get all categories
-export async function getAllCategories() {
-  try {
-    const result = await db.select().from(categories);
-    return result;
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    throw error;
-  }
+/**
+ * Create a new grant
+ */
+export async function createGrant(grantData: Omit<Grant, 'id' | 'createdAt' | 'updatedAt'>): Promise<Grant> {
+  const result = await db.insert(grants).values(grantData).returning();
+  return result[0];
 }
 
-// Get all issuers
-export async function getAllIssuers() {
-  try {
-    const result = await db.select().from(issuers);
-    return result;
-  } catch (error) {
-    console.error('Error fetching issuers:', error);
-    throw error;
-  }
+/**
+ * Update a grant
+ */
+export async function updateGrant(id: string, updates: Partial<Omit<Grant, 'id' | 'createdAt'>>): Promise<Grant | null> {
+  const result = await db
+    .update(grants)
+    .set({ ...updates, updatedAt: new Date() })
+    .where(eq(grants.id, id))
+    .returning();
+  return result[0] || null;
 }
 
-// Create a new card
-export async function createCard(cardData: {
-  name: string;
-  nativeCurrencyId?: string;
-  imageLink?: string;
-  issuerId?: string;
-  collaboratorId?: string;
-  officialLink?: string;
-}) {
-  try {
-    const result = await db
-      .insert(cards)
-      .values(cardData)
-      .returning();
-    
-    return result[0];
-  } catch (error) {
-    console.error('Error creating card:', error);
-    throw error;
-  }
+/**
+ * Delete a grant
+ */
+export async function deleteGrant(id: string): Promise<boolean> {
+  const result = await db.delete(grants).where(eq(grants.id, id)).returning();
+  return result.length > 0;
 }
 
-// Update a card
-export async function updateCard(cardId: string, updates: Partial<{
-  name: string;
-  nativeCurrencyId: string;
-  imageLink: string;
-  issuerId: string;
-  collaboratorId: string;
-  officialLink: string;
-  isDiscontinued: boolean;
-}>) {
-  try {
-    const result = await db
-      .update(cards)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(cards.id, cardId))
-      .returning();
-    
-    return result[0];
-  } catch (error) {
-    console.error('Error updating card:', error);
-    throw error;
-  }
+// ============================================================================
+// INSTITUTION QUERIES
+// ============================================================================
+
+/**
+ * Get all institutions
+ */
+export async function getAllInstitutions(): Promise<Institution[]> {
+  return await db.select().from(institutions).orderBy(asc(institutions.name));
 }
 
-// Delete a card (soft delete)
-export async function deleteCard(cardId: string) {
-  try {
-    const result = await db
-      .update(cards)
-      .set({ isDiscontinued: true, updatedAt: new Date() })
-      .where(eq(cards.id, cardId))
-      .returning();
-    
-    return result[0];
-  } catch (error) {
-    console.error('Error deleting card:', error);
-    throw error;
+/**
+ * Get institution by ID
+ */
+export async function getInstitutionById(id: string): Promise<Institution | null> {
+  const result = await db.select().from(institutions).where(eq(institutions.id, id)).limit(1);
+  return result[0] || null;
+}
+
+/**
+ * Get institution by name
+ */
+export async function getInstitutionByName(name: string): Promise<Institution | null> {
+  const result = await db.select().from(institutions).where(eq(institutions.name, name)).limit(1);
+  return result[0] || null;
+}
+
+/**
+ * Search institutions with filters
+ */
+export async function searchInstitutions(params: InstitutionSearchParams): Promise<Institution[]> {
+  const { name, website, limit = 50, offset = 0 } = params;
+  
+  const conditions = [];
+  
+  if (name) {
+    conditions.push(ilike(institutions.name, `%${name}%`));
   }
+  
+  if (website) {
+    conditions.push(ilike(institutions.website, `%${website}%`));
+  }
+  
+  if (conditions.length > 0) {
+    return await db
+      .select()
+      .from(institutions)
+      .where(and(...conditions))
+      .orderBy(asc(institutions.name))
+      .limit(limit)
+      .offset(offset);
+  }
+  
+  return await db
+    .select()
+    .from(institutions)
+    .orderBy(asc(institutions.name))
+    .limit(limit)
+    .offset(offset);
+}
+
+/**
+ * Create a new institution
+ */
+export async function createInstitution(institutionData: Omit<Institution, 'id' | 'createdAt' | 'updatedAt'>): Promise<Institution> {
+  const result = await db.insert(institutions).values(institutionData).returning();
+  return result[0];
+}
+
+/**
+ * Update an institution
+ */
+export async function updateInstitution(id: string, updates: Partial<Omit<Institution, 'id' | 'createdAt'>>): Promise<Institution | null> {
+  const result = await db
+    .update(institutions)
+    .set({ ...updates, updatedAt: new Date() })
+    .where(eq(institutions.id, id))
+    .returning();
+  return result[0] || null;
+}
+
+/**
+ * Delete an institution
+ */
+export async function deleteInstitution(id: string): Promise<boolean> {
+  const result = await db.delete(institutions).where(eq(institutions.id, id)).returning();
+  return result.length > 0;
+}
+
+// ============================================================================
+// UTILITY QUERIES
+// ============================================================================
+
+/**
+ * Get grants by institution ID
+ */
+export async function getGrantsByInstitutionId(institutionId: string): Promise<Grant[]> {
+  return await db
+    .select()
+    .from(grants)
+    .where(eq(grants.institutionId, institutionId))
+    .orderBy(desc(grants.createdAt));
+}
+
+/**
+ * Get total grant amount by institution
+ */
+export async function getTotalGrantAmountByInstitution(institutionId: string): Promise<number> {
+  const result = await db
+    .select({
+      total: grants.grantAmount
+    })
+    .from(grants)
+    .where(eq(grants.institutionId, institutionId));
+  
+  return result.reduce((sum, grant) => {
+    const amount = grant.total || 0;
+    return sum + amount;
+  }, 0);
+}
+
+/**
+ * Get grant statistics
+ */
+export async function getGrantStatistics() {
+  const totalGrants = await db.select().from(grants);
+  const totalInstitutions = await db.select().from(institutions);
+  
+  const totalAmount = totalGrants.reduce((sum, grant) => {
+    const amount = grant.grantAmount || 0;
+    return sum + amount;
+  }, 0);
+  
+  return {
+    totalGrants: totalGrants.length,
+    totalInstitutions: totalInstitutions.length,
+    totalAmount,
+    averageAmount: totalGrants.length > 0 ? totalAmount / totalGrants.length : 0
+  };
 }

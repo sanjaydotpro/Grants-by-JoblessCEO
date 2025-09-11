@@ -1,48 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-
-interface Card {
-  id: string
-  name: string | null
-  nativeCurrencyId: string | null
-  imageLink: string | null
-  issuerId: string | null
-  collaboratorId: string | null
-  officialLink: string | null
-  isDiscontinued: boolean | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  issuer?: {
-    name: string
-  }
-}
-
-interface Category {
-  id: string
-  name: string | null
-  description: string | null
-  createdAt: Date | null
-}
-
-interface Issuer {
-  id: string
-  name: string | null
-  description: string | null
-  createdAt: Date | null
-}
+import type { Grant, Institution, GrantWithInstitution } from '@/drizzle/types';
 
 interface DrizzleExampleProps {
-  cards: Card[];
-  cardsWithIssuer: Card[];
-  categories: Category[];
-  issuers: Issuer[];
+  grants: Grant[];
+  institutions: Institution[];
+  grantsWithInstitutions: GrantWithInstitution[];
 }
 
 // Example component showing how to use Drizzle queries
-export default function DrizzleExample({ cards, cardsWithIssuer, categories, issuers }: DrizzleExampleProps) {
+export default function DrizzleExample({ grants, institutions, grantsWithInstitutions }: DrizzleExampleProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState<Card[]>([]);
+  const [searchResults, setSearchResults] = useState<Grant[]>([]);
 
   // Handle search (client-side filtering for demo)
   const handleSearch = () => {
@@ -51,63 +21,49 @@ export default function DrizzleExample({ cards, cardsWithIssuer, categories, iss
       return;
     }
 
-    const results = cards.filter(card => 
-      card.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    const results = grants.filter(grant => 
+      grant.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      grant.description?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(results);
   };
 
-
-
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h1 className="text-2xl font-bold text-blue-900 mb-2">
-          🚀 Drizzle ORM Integration Example
-        </h1>
-        <p className="text-blue-700">
-          This component demonstrates how to use Drizzle queries alongside your existing Prisma setup.
-        </p>
-      </div>
-
-
-
+    <div className="space-y-8">
       {/* Search Section */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">🔍 Search Cards (Drizzle)</h2>
+        <h2 className="text-xl font-semibold mb-4">🔍 Search Grants (Drizzle)</h2>
         <div className="flex gap-2 mb-4">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for cards..."
+            placeholder="Search for grants..."
             className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
           />
           <button
             onClick={handleSearch}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
             Search
           </button>
         </div>
         
         {searchResults.length > 0 && (
-          <div className="space-y-2">
+          <div className="mt-4">
             <h3 className="font-medium text-gray-700">Search Results ({searchResults.length}):</h3>
             <div className="grid gap-2">
-              {searchResults.map((card) => (
-                <div key={card.id} className="p-3 bg-gray-50 rounded border">
-                  <div className="font-medium">{card.name || 'Unnamed Card'}</div>
-                  <div className="text-sm text-gray-600">ID: {card.id}</div>
-                  {card.officialLink && (
-                    <a href={card.officialLink} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline block mt-1">
-                      Official Link
+              {searchResults.map((grant) => (
+                <div key={grant.id} className="p-3 bg-gray-50 rounded border">
+                  <div className="font-medium">{grant.name || 'Unnamed Grant'}</div>
+                  <div className="text-sm text-gray-600">Amount: ${grant.grantAmount || 'Not specified'}</div>
+                  <div className="text-sm text-gray-500 mt-1">{grant.description || 'No description'}</div>
+                  {grant.website && (
+                    <a href={grant.website} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline block mt-1">
+                      Grant Website
                     </a>
                   )}
-                  <div className="text-xs text-gray-500 mt-1">
-                    Status: {card.isDiscontinued ? 'Discontinued' : 'Active'}
-                  </div>
                 </div>
               ))}
             </div>
@@ -116,116 +72,103 @@ export default function DrizzleExample({ cards, cardsWithIssuer, categories, iss
       </div>
 
       {/* Stats Section */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-2xl font-bold text-blue-600">{cards.length}</div>
-          <div className="text-sm text-gray-600">Total Cards</div>
+          <div className="text-2xl font-bold text-blue-600">{grants.length}</div>
+          <div className="text-sm text-gray-600">Total Grants</div>
         </div>
         <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-2xl font-bold text-green-600">{cardsWithIssuer.length}</div>
-          <div className="text-sm text-gray-600">Cards with Issuers</div>
+          <div className="text-2xl font-bold text-green-600">{grantsWithInstitutions.length}</div>
+          <div className="text-sm text-gray-600">Grants with Institutions</div>
         </div>
         <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-2xl font-bold text-purple-600">{categories.length}</div>
-          <div className="text-sm text-gray-600">Categories</div>
-        </div>
-        <div className="bg-white border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-2xl font-bold text-orange-600">{issuers.length}</div>
-          <div className="text-sm text-gray-600">Issuers</div>
+          <div className="text-2xl font-bold text-purple-600">{institutions.length}</div>
+          <div className="text-sm text-gray-600">Institutions</div>
         </div>
       </div>
 
-      {/* Cards with Issuer Section */}
+      {/* Grants with Institution Section */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">💳 Cards with Issuer Information</h2>
-        {cardsWithIssuer.length > 0 ? (
+        <h2 className="text-xl font-semibold mb-4">🏛️ Grants with Institution Information</h2>
+        {grantsWithInstitutions.length > 0 ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {cardsWithIssuer.slice(0, 6).map((card) => (
-              <div key={card.id} className="border border-gray-200 rounded-lg p-4">
+            {grantsWithInstitutions.slice(0, 6).map((grant) => (
+              <div key={grant.id} className="border border-gray-200 rounded-lg p-4">
                 <h3 className="font-medium text-gray-900">
-                  {card.name || 'Unnamed Card'}
+                  {grant.name || 'Unnamed Grant'}
                 </h3>
                 <p className="text-sm text-gray-600 mt-1">
-                  Issuer: {card.issuer?.name || 'No issuer'}
+                  Institution: {grant.institution?.name || 'No institution'}
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Amount: ${grant.grantAmount || 'Not specified'}
                 </p>
                 <p className="text-xs text-gray-500 mt-2">
-                  ID: {card.id}
+                  ID: {grant.id}
                 </p>
-                {card.officialLink && (
+                {grant.website && (
                   <a 
-                    href={card.officialLink} 
+                    href={grant.website} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 text-sm mt-2 inline-block"
                   >
-                    Official Link →
+                    Grant Website →
                   </a>
                 )}
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500 italic">No cards with issuer information found.</p>
+          <p className="text-gray-500 italic">No grants with institution information found.</p>
         )}
       </div>
 
-      {/* Categories Section */}
+      {/* Institutions Section */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">📂 Categories</h2>
-        {categories.length > 0 ? (
+        <h2 className="text-xl font-semibold mb-4">🏛️ Institutions</h2>
+        {institutions.length > 0 ? (
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category) => (
-              <div key={category.id} className="border border-gray-200 rounded-lg p-3">
+            {institutions.map((institution) => (
+              <div key={institution.id} className="border border-gray-200 rounded-lg p-3">
                 <h3 className="font-medium text-gray-900">
-                  {category.name || 'Unnamed Category'}
+                  {institution.name || 'Unnamed Institution'}
                 </h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  {category.description || 'No description'}
-                </p>
+                {institution.website && (
+                  <a 
+                    href={institution.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 text-sm mt-1 inline-block"
+                  >
+                    Visit Website →
+                  </a>
+                )}
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500 italic">No categories found.</p>
-        )}
-      </div>
-
-      {/* Issuers Section */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">🏦 Issuers</h2>
-        {issuers.length > 0 ? (
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {issuers.map((issuer) => (
-              <div key={issuer.id} className="border border-gray-200 rounded-lg p-3">
-                <h3 className="font-medium text-gray-900">
-                  {issuer.name || 'Unnamed Issuer'}
-                </h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  {issuer.description || 'No description'}
-                </p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-500 italic">No issuers found.</p>
+          <p className="text-gray-500 italic">No institutions found.</p>
         )}
       </div>
 
       {/* Code Example */}
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">💻 Usage Example</h2>
-        <pre className="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto">
+        <h2 className="text-xl font-semibold mb-4">📝 Code Example</h2>
+        <pre className="text-sm text-gray-700 overflow-x-auto">
 {`// Import Drizzle queries
 import { 
-  getAllCardsWithDrizzle, 
-  getCardsWithIssuer, 
-  searchCardsByName 
+  getAllGrants, 
+  getGrantsWithInstitution, 
+  getAllInstitutions,
+  searchGrants 
 } from '@/drizzle/queries';
 
 // Use in your components
-const cards = await getAllCardsWithDrizzle();
-const cardsWithIssuer = await getCardsWithIssuer();
-const searchResults = await searchCardsByName('visa');`}
+const grants = await getAllGrants();
+const grantsWithInstitutions = await getGrantsWithInstitution();
+const institutions = await getAllInstitutions();
+const searchResults = await searchGrants({ name: 'research' });`}
         </pre>
       </div>
     </div>

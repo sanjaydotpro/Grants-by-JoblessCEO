@@ -80,7 +80,7 @@ export function HeroWaitList() {
             alt="Hero Image"
             className="object-cover rounded-lg"
             height={1108}
-            src="/images/cardGrid.png"
+            src="/images/cardGridDark.svg"
             style={{
               aspectRatio: "1280/1108",
               objectFit: "cover",
@@ -93,7 +93,7 @@ export function HeroWaitList() {
             alt="Hero Image"
             className="object-cover rounded-lg"
             height={1108}
-            src="/images/cardGridDark.png"
+            src="/images/cardGridDark.svg"
             style={{
               aspectRatio: "1280/1108",
               objectFit: "cover",

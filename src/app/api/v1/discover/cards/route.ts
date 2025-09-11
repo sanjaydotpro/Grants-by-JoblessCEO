@@ -6,7 +6,7 @@ import {
 import { FilterQueryParams } from "@/types";
 import db from "@/lib/helper/prismaClient";
 import { eq, and, or, ilike, inArray, gte, lte, count, sql } from "drizzle-orm";
-import { cards, issuers, collaborators } from "@/drizzle/schema";
+import { grants, institutions } from "@/drizzle/schema";
 
 const buildWhereClause = ({
   search = "",
@@ -34,19 +34,7 @@ const buildWhereClause = ({
           mode: "insensitive",
         },
       },
-      {
-        OR: [
-          { issuers: { name: { contains: search, mode: "insensitive" } } },
-          {
-            issuers: { short_form: { contains: search, mode: "insensitive" } },
-          },
-          {
-            issuers: {
-              display_name: { contains: search, mode: "insensitive" },
-            },
-          },
-        ],
-      },
+      // Institution search will be handled in the main query with joins
     ];
   }
 

@@ -1,147 +1,75 @@
 import { NextResponse } from "next/server";
 import { capitalizeFirstLetter, snakeCase } from "@/lib/helper/miscFunctions";
-import { eq } from "drizzle-orm";
-import { categories, issuers, features, employment, collaborators, networks } from "@/drizzle/schema";
-import db from "@/lib/helper/prismaClient";
+import { eq, isNotNull } from "drizzle-orm";
+import { grants, institutions } from "@/drizzle/schema";
+import { db } from "@/drizzle/db";
 
 const fetchAllFilters = async () => {
-  const categoryData = await db
+  const institutionsData = await db
     .select({
-      id: categories.id,
-      name: categories.name,
+      id: institutions.id,
+      name: institutions.name,
     })
-    .from(categories);
+    .from(institutions);
 
-  const issuersData = await db
+  // Get unique grant amounts for filtering
+  const grantsData = await db
     .select({
-      id: issuers.id,
-      name: issuers.name,
-      description: issuers.description,
+      grantAmount: grants.grantAmount,
     })
-    .from(issuers);
+    .from(grants)
+    .where(isNotNull(grants.grantAmount));
 
-  const featuresData = await db
-    .select({
-      id: features.id,
-      feature_category: features.featureCategory,
-    })
-    .from(features);
-
-  const employmentData = await db
-    .select({
-      id: employment.id,
-      name: employment.name,
-    })
-    .from(employment);
-
-  const collaboratorData = await db
-    .select({
-      id: collaborators.id,
-      name: collaborators.name,
-    })
-    .from(collaborators);
-
-  const networkData = await db
-    .select({
-      id: networks.id,
-      name: networks.name,
-    })
-    .from(networks);
+  // Extract unique amounts and sort them
+  const uniqueAmounts = [...new Set(grantsData.map(g => g.grantAmount).filter(Boolean))]
+    .sort((a, b) => (a || 0) - (b || 0));
 
   return {
-    category: categoryData.map((category) => ({
-      value: snakeCase(category.name ?? ""),
-      label: capitalizeFirstLetter(category.name ?? ""),
-      id: category.id,
-      filter: "category",
+    institution: institutionsData.map((institution) => ({
+      value: snakeCase(institution.name ?? ""),
+      label: institution.name ?? "",
+      id: institution.id,
+      filter: "institution",
     })),
-    issuer: issuersData.map((issuer) => ({
-      value: snakeCase(issuer.name ?? ""),
-      label: issuer.name ?? "",
-      id: issuer.id,
-      filter: "issuer",
-    })),
-    feature: featuresData.map((feature) => ({
-      value: snakeCase(feature.feature_category ?? ""),
-      label: feature.feature_category ?? "",
-      id: feature.id,
-      filter: "feature",
-    })),
-    employment: employmentData.map((employment) => ({
-      value: snakeCase(employment.name ?? ""),
-      label: employment.name ?? "",
-      id: employment.id,
-      filter: "employment",
-    })),
-    collaborator: collaboratorData.map((collaborator) => ({
-      value: snakeCase(collaborator.name ?? ""),
-      label: collaborator.name ?? "",
-      id: collaborator.id,
-      filter: "collaborator",
-    })),
-    network: networkData.map((network) => ({
-      value: snakeCase(network.name ?? ""),
-      label: network.name ?? "",
-      id: network.id,
-      filter: "network",
-    })),
-    income: [
+    grantAmount: [
       {
-        value: "0,50",
-        label: "Income",
-        id: 301,
-        filter: "income",
-        prefix: "₹",
-        suffix: "L",
-      },
-    ],
-    fees: [
-      {
-        value: "0,90000",
-        label: "Fees",
-        id: 401,
-        filter: "fees",
-        prefix: "₹",
+        value: "0,10000",
+        label: "Under $10,000",
+        id: 101,
+        filter: "grantAmount",
+        prefix: "$",
         suffix: "",
       },
-    ],
-    valueBack: [
       {
-        value: "1,50",
-        label: "ValueBack",
-        id: 501,
-        filter: "valueBack",
-        prefix: "",
-        suffix: "%",
-      },
-    ],
-    interestRate: [
-      {
-        value: "1,50",
-        label: "Interest Rate",
-        id: 601,
-        filter: "interestRate",
-        prefix: "",
-        suffix: "%",
-      },
-    ],
-    age: [
-      {
-        value: "18,70",
-        label: "Age",
-        id: 701,
-        filter: "age",
-        prefix: "",
+        value: "10000,50000",
+        label: "$10,000 - $50,000",
+        id: 102,
+        filter: "grantAmount",
+        prefix: "$",
         suffix: "",
       },
-    ],
-    cibilScore: [
       {
-        value: "300,900",
-        label: "CIBIL Score",
-        id: 801,
-        filter: "cibilScore",
-        prefix: "",
+        value: "50000,100000",
+        label: "$50,000 - $100,000",
+        id: 103,
+        filter: "grantAmount",
+        prefix: "$",
+        suffix: "",
+      },
+      {
+        value: "100000,500000",
+        label: "$100,000 - $500,000",
+        id: 104,
+        filter: "grantAmount",
+        prefix: "$",
+        suffix: "",
+      },
+      {
+        value: "500000,999999999",
+        label: "Over $500,000",
+        id: 105,
+        filter: "grantAmount",
+        prefix: "$",
         suffix: "",
       },
     ],
@@ -155,27 +83,26 @@ const fetchAllFilters = async () => {
         suffix: "",
       },
     ],
-    forex: [
-      {
-        value: "0,5",
-        label: "Forex",
-        id: 1001,
-        filter: "forex",
-        prefix: "",
-        suffix: "%",
-      },
-    ],
   };
 };
 
 export async function GET() {
+  // Skip database operations during build to prevent native binding issues
+  // Only skip during actual build phase, not during development or production runtime
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    return NextResponse.json({
+      institution: [],
+      grantAmount: [],
+    });
+  }
+  
   try {
-    const filters = await fetchAllFilters();
-    return NextResponse.json(filters, { status: 200 });
+    const data = await fetchAllFilters();
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching filters:", error);
     return NextResponse.json(
-      { error: "Error fetching filters" },
+      { error: "Unable to fetch filters at this time. Please try again later." },
       { status: 500 }
     );
   }
