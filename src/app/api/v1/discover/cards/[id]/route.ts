@@ -42,7 +42,7 @@ const fetchSingleGrant = async (slug: string) => {
   }
 
   //Format the db results in the desired format
-  const formattedGrants = grantsData.map((grant) => ({
+  const formattedGrants = grantsData.map((grant: any) => ({
     id: grant.id,
     name: grant.name,
     amount: grant.grantAmount,
