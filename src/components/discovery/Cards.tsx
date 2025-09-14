@@ -139,7 +139,7 @@ function Cards({ initialFilters, filtersError }: CardsProps) {
                 <Input
                   placeholder="Search for a card"
                   defaultValue={activeFilters.search?.[0]?.value || ""}
-                  className="pl-14 pr-10 text-md h-full"
+                  className="pl-14 pr-10 text-md h-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/15 focus:bg-white/20"
                   onChange={(e) => {
                     const value = e.target.value;
                     clearTimeout((window as any).searchTimeout);
@@ -166,9 +166,9 @@ function Cards({ initialFilters, filtersError }: CardsProps) {
               </div>
               {isDesktop ? (
                 <Button
-                  className="allFiltersToggle flex items-center gap-2 h-[42px] text-md"
+                  className="allFiltersToggle flex items-center gap-2 h-[42px] text-md border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/15 focus:bg-white/20"
                   onClick={() => dispatch(toggleSidebar())}
-                  variant="secondary"
+                  variant="ghost"
                 >
                   <TbFilter className="h-6 w-6" />
                   Filters
@@ -186,7 +186,7 @@ function Cards({ initialFilters, filtersError }: CardsProps) {
             <div className="sortView w-full md:w-auto mt-4 md:mt-2">
               <div className="flex items-center space-x-4 h-6 justify-between">
                 <Select onValueChange={setSortOption}>
-                  <SelectTrigger className="w-full md:w-[220px] border-none text-slate-600 dark:text-slate-400">
+                  <SelectTrigger className="w-full md:w-[220px] border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/15 focus:bg-white/20 text-slate-600 dark:text-slate-400">
                     <SelectValue
                       placeholder="Sort by (asc) "
                       className="border-none"

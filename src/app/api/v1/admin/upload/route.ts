@@ -148,7 +148,7 @@ function validateGrantData(data: ParsedData[]): any[] {
       ? institutionName.trim() 
       : 'Unknown Institution';
     
-    // Transform and validate data with correct column mapping
+    // Transform and validate data
      const grantData = {
        name: name.trim(),
        institutionName: finalInstitutionName,

@@ -4,37 +4,37 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border border-slate-200 px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:border-slate-800 dark:focus:ring-slate-800",
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 ring-offset-background backdrop-blur-sm bg-opacity-80",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-slate-900 text-slate-50 hover:bg-slate-900/80 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/80",
+          "border-transparent bg-primary/80 text-primary-foreground hover:bg-primary/60 backdrop-blur-md",
         secondary:
-          "border-transparent bg-slate-100 text-slate-900 hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
+          "border-transparent bg-secondary/80 text-secondary-foreground hover:bg-secondary/60 backdrop-blur-md",
         destructive:
-          "border-transparent bg-red-500 text-slate-50 hover:bg-red-500/80 dark:bg-red-900 dark:text-red-50 dark:hover:bg-red-900/80",
-        outline: "text-slate-950 dark:text-slate-50",
+          "border-transparent bg-destructive/80 text-destructive-foreground hover:bg-destructive/60 backdrop-blur-md",
+        outline: "text-foreground border-border/50 bg-background/20 backdrop-blur-md hover:bg-accent/20",
         category:
-          "border-transparent bg-blue-200 text-slate-900 hover:bg-blue-200/80 dark:bg-blue-800 dark:text-slate-50 dark:hover:bg-blue-800/80",
+          "border-transparent bg-blue-500/80 text-white hover:bg-blue-500/60 backdrop-blur-md",
         issuer:
-          "border-transparent bg-green-200 text-slate-900 hover:bg-green-200/80 dark:bg-green-800 dark:text-slate-50 dark:hover:bg-green-800/80",
+          "border-transparent bg-green-500/80 text-white hover:bg-green-500/60 backdrop-blur-md",
         feature:
-          "border-transparent bg-yellow-200 text-slate-900 hover:bg-yellow-200/80 dark:bg-yellow-800 dark:text-slate-50 dark:hover:bg-yellow-800/80",
+          "border-transparent bg-yellow-500/80 text-black hover:bg-yellow-500/60 backdrop-blur-md",
         employment:
-          "border-transparent bg-red-200 text-slate-900 hover:bg-red-200/80 dark:bg-red-800 dark:text-slate-50 dark:hover:bg-red-800/80",
+          "border-transparent bg-red-500/80 text-white hover:bg-red-500/60 backdrop-blur-md",
         income:
-          "border-transparent bg-purple-200 text-slate-900 hover:bg-purple-200/80 dark:bg-purple-800 dark:text-slate-50 dark:hover:bg-purple-800/80",
-        fees: "border-transparent bg-pink-200 text-slate-900 hover:bg-pink-200/80 dark:bg-pink-800 dark:text-slate-50 dark:hover:bg-pink-800/80",
+          "border-transparent bg-purple-500/80 text-white hover:bg-purple-500/60 backdrop-blur-md",
+        fees: "border-transparent bg-pink-500/80 text-white hover:bg-pink-500/60 backdrop-blur-md",
         valueBack:
-          "border-transparent bg-indigo-200 text-slate-900 hover:bg-indigo-200/80 dark:bg-indigo-800 dark:text-slate-50 dark:hover:bg-indigo-800/80",
+          "border-transparent bg-indigo-500/80 text-white hover:bg-indigo-500/60 backdrop-blur-md",
         interestRate:
-          "border-transparent bg-teal-200 text-slate-900 hover:bg-teal-200/80 dark:bg-teal-800 dark:text-slate-50 dark:hover:bg-teal-800/80",
-        age: "border-transparent bg-orange-200 text-slate-900 hover:bg-orange-200/80 dark:bg-orange-800 dark:text-slate-50 dark:hover:bg-orange-800/80",
+          "border-transparent bg-teal-500/80 text-white hover:bg-teal-500/60 backdrop-blur-md",
+        age: "border-transparent bg-orange-500/80 text-white hover:bg-orange-500/60 backdrop-blur-md",
         cibilScore:
-          "border-transparent bg-gray-200 text-slate-900 hover:bg-gray-200/80 dark:bg-gray-800 dark:text-slate-50 dark:hover:bg-gray-800/80",
+          "border-transparent bg-gray-500/80 text-white hover:bg-gray-500/60 backdrop-blur-md",
         collaborator:
-          "bg-lime-200 text-slate-900 hover:bg-lime-200/80 dark:bg-lime-800 dark:text-slate-50 dark:hover:bg-lime-800/80",
+          "border-transparent bg-lime-500/80 text-black hover:bg-lime-500/60 backdrop-blur-md",
       },
     },
     defaultVariants: {

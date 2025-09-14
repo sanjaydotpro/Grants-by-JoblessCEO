@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import ModeToggle from "@/components/ui/theme-toggle";
-import Register from "@/app/(auth)/auth/page";
+// import Register from "@/app/(auth)/auth/page";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -82,8 +82,8 @@ import { allCategories } from "@/data/inputs";
 import { Badge } from "../ui/badge";
 function NavOne() {
 	return (
-		<header className="navbar sticky top-0 z-40 w-full backdrop-blur-sm flex-none transition-colors duration-500 lg:z-50 border-b border-slate-900/10 dark:border-slate-50/6 bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
-			<div className="container flex h-16 items-center justify-between">
+		<header className="navbar sticky top-0 z-40 w-full backdrop-blur-sm flex-none transition-all duration-500 ease-in-out lg:z-50 border-b border-slate-700/20 bg-slate-900/95 supports-backdrop-blur:bg-slate-900/80">
+			<div className="container flex h-16 items-center justify-between transition-colors duration-300 ease-in-out text-white">
 				{/* Hamburger Menu */}
 				<div className="sm:hidden">
 					<Drawer>
@@ -93,7 +93,7 @@ function NavOne() {
 							</div>
 						</DrawerTrigger>
 						<DrawerContent>
-							<div className="w-full shadow-xl dark:bg-slate-950 mt-3">
+							<div className="w-full shadow-xl bg-white dark:bg-slate-950 mt-3 transition-colors duration-300 ease-in-out">
 								<a className="flex items-center space-x-2 mx-2 my-2" href="/">
 									<Image
 										src="/images/logo/logo.png"
@@ -163,29 +163,7 @@ function NavOne() {
 											</span>
 										</button>
 									</ul>
-									<ul>
-										<strong>Card Categories</strong>
-										<div className="w-full mt-6">
-											{allCategories.map((category, index) => (
-												<Button
-													key={`${category.label}`}
-													variant="outline"
-													className="rounded-full mr-1 mb-2"
-												>
-													<a
-														key={category.id}
-														className="flex text-slate-600 dark:text-slate-400 items-center cursor-pointer py-2 capitalize"
-														href={category.href}
-													>
-														{category.IconName && (
-															<category.IconName className="mr-2" />
-														)}
-														{category.label}
-													</a>
-												</Button>
-											))}
-										</div>
-									</ul>
+
 								</div>
 							</div>
 							<DrawerFooter>
@@ -277,25 +255,26 @@ function NavOne() {
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem> */}
+
 								<NavigationMenuItem>
-									<NavigationMenuTrigger>Categories</NavigationMenuTrigger>
-									<NavigationMenuContent>
-										<ul className="grid gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] capitalize">
-											{allCategories.map((category) => (
-												<ListItem
-													key={category.label}
-													label={category.label}
-													href={category.href}
-													IconName={category.IconName}
-												>
-													{category.description}
-												</ListItem>
-											))}
-										</ul>
-									</NavigationMenuContent>
-								</NavigationMenuItem>
-								{/* TODO: Add Explore Lounges */}
-								<NavigationMenuItem>
+													<NavigationMenuTrigger>Categories</NavigationMenuTrigger>
+													<NavigationMenuContent>
+														<ul className="grid gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] capitalize">
+															{allCategories.map((category) => (
+																<ListItem
+																	key={category.label}
+																	label={category.label}
+																	href={category.href}
+																	IconName={category.IconName}
+																>
+																	{category.description}
+																</ListItem>
+															))}
+														</ul>
+													</NavigationMenuContent>
+												</NavigationMenuItem>
+												{/* TODO: Add Explore Lounges */}
+												<NavigationMenuItem>
 									<NavigationMenuLink
 										className={`${navigationMenuTriggerStyle()} cursor-not-allowed opacity-50`}
 									>
