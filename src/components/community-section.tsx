@@ -53,7 +53,7 @@ export default function CommunitySection({
       style={style}
       aria-label="Community Discord"
     >
-      <div className="relative overflow-hidden rounded-2xl bg-surface-1 border border-border">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-black/60 via-black/40 to-[#fc1e67]/20 border border-white/20 shadow-xl shadow-black/30 backdrop-blur-xl">
         {/* Decorative background */}
         <div
           aria-hidden="true"
@@ -87,7 +87,7 @@ export default function CommunitySection({
             {benefits.map((b, idx) => (
               <li
                 key={`${b.title}-${idx}`}
-                className="group flex items-start gap-3 rounded-lg bg-surface-2/50 p-4 ring-1 ring-inset ring-border transition-colors hover:bg-surface-2"
+                className="group flex items-start gap-3 rounded-lg bg-gradient-to-br from-black/40 via-black/30 to-[#fc1e67]/10 border border-white/20 p-4 shadow-lg shadow-black/20 backdrop-blur-lg transition-all duration-300 hover:from-black/50 hover:via-black/40 hover:to-[#fc1e67]/15 hover:shadow-xl hover:shadow-black/30"
               >
                 <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-primary/15 text-primary ring-1 ring-inset ring-primary/30 transition-transform group-hover:scale-105">
                   <Dot className="h-4 w-4" aria-hidden="true" />
@@ -120,7 +120,7 @@ export default function CommunitySection({
                 >
                   {/* Official Discord logo */}
                   <svg
-                    className="h-4 w-4 text-[#5865F2] drop-shadow-sm"
+                    className="h-4 w-4 text-[#fc1e67] drop-shadow-sm"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
                     fill="currentColor"

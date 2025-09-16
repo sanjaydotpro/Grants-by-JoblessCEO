@@ -3,6 +3,7 @@
 import Link from "next/link";
 import * as React from "react";
 import { Sparkles } from "lucide-react";
+import Image from "next/image";
 
 export interface SiteHeaderProps {
   className?: string;
@@ -14,14 +15,15 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ className }) => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="relative mx-auto flex items-center justify-between rounded-full border border-white/10 bg-white/5 px-6 py-3.5 shadow-[0_14px_50px_rgba(0,0,0,0.35)] backdrop-blur-2xl backdrop-saturate-150 ring-1 ring-white/10 supports-[backdrop-filter]:bg-white/5 sm:px-8 sm:py-4">
           {/* Brand */}
-          <Link href="#hero" className="group inline-flex items-center gap-2">
-            <span className="relative grid h-6 w-6 place-items-center">
-              <span className="absolute inset-0 rounded-md bg-primary/30 blur-md" aria-hidden="true" />
-              <span className="h-3 w-3 rounded-sm bg-primary shadow-[0_0_24px_rgba(139,92,246,0.65)]" />
-            </span>
-            <span className="select-none text-sm font-semibold tracking-wide text-foreground/90 transition-colors group-hover:text-foreground sm:text-base">
-              Jobless CEO
-            </span>
+          <Link href="#hero" className="group inline-flex items-center">
+            <Image
+              src="/images/logo/logo-rect.webp"
+              alt="Logo"
+              width={120}
+              height={32}
+              className="h-8 w-auto transition-opacity group-hover:opacity-90"
+              priority
+            />
           </Link>
 
           {/* Nav */}

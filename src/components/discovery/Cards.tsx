@@ -139,7 +139,7 @@ function Cards({ initialFilters, filtersError }: CardsProps) {
                 <Input
                   placeholder="Search for a card"
                   defaultValue={activeFilters.search?.[0]?.value || ""}
-                  className="pl-14 pr-10 text-md h-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/15 focus:bg-white/20"
+                  className="pl-14 pr-10 text-md h-full border border-white/20 bg-gradient-to-r from-black/40 via-black/30 to-[#fc1e67]/20 backdrop-blur-xl transition-all duration-200 hover:from-black/50 hover:via-black/40 hover:to-[#fc1e67]/25 focus:from-black/50 focus:via-black/40 focus:to-[#fc1e67]/25 text-white shadow-lg shadow-black/20"
                   onChange={(e) => {
                     const value = e.target.value;
                     clearTimeout((window as any).searchTimeout);
@@ -166,7 +166,7 @@ function Cards({ initialFilters, filtersError }: CardsProps) {
               </div>
               {isDesktop ? (
                 <Button
-                  className="allFiltersToggle flex items-center gap-2 h-[42px] text-md border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/15 focus:bg-white/20"
+                  className="allFiltersToggle flex items-center gap-2 h-[42px] text-md border border-white/20 bg-gradient-to-r from-black/40 via-black/30 to-[#fc1e67]/20 backdrop-blur-xl transition-all duration-200 hover:from-black/50 hover:via-black/40 hover:to-[#fc1e67]/25 focus:from-black/50 focus:via-black/40 focus:to-[#fc1e67]/25 text-white shadow-lg shadow-black/20"
                   onClick={() => dispatch(toggleSidebar())}
                   variant="ghost"
                 >
@@ -186,7 +186,7 @@ function Cards({ initialFilters, filtersError }: CardsProps) {
             <div className="sortView w-full md:w-auto mt-4 md:mt-2">
               <div className="flex items-center space-x-4 h-6 justify-between">
                 <Select onValueChange={setSortOption}>
-                  <SelectTrigger className="w-full md:w-[220px] border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/15 focus:bg-white/20 text-slate-600 dark:text-slate-400">
+                  <SelectTrigger className="w-full md:w-[220px] border border-white/20 bg-gradient-to-r from-black/40 via-black/30 to-[#fc1e67]/20 backdrop-blur-xl transition-all duration-200 hover:from-black/50 hover:via-black/40 hover:to-[#fc1e67]/25 focus:from-black/50 focus:via-black/40 focus:to-[#fc1e67]/25 text-white shadow-lg shadow-black/20">
                     <SelectValue
                       placeholder="Sort by (asc) "
                       className="border-none"

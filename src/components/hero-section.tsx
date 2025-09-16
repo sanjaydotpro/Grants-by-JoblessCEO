@@ -37,7 +37,7 @@ export default function HeroSection({ className }: HeroSectionProps) {
         >
           A Club for Ideas
           <br />
-          <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#fc1e67] to-[#e91e63] bg-clip-text text-transparent">
             and Founders
           </span>
         </motion.h1>

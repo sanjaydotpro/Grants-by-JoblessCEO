@@ -106,14 +106,14 @@ export default function GrantsApplicationSection({
         className={cn(
           "w-full max-w-full",
           "rounded-[calc(var(--radius)+0.25rem)]",
-          "bg-[var(--surface-1)]/80",
-          "border border-border",
-          "shadow-[0_0_0_1px_rgba(46,211,183,0.04)_inset,0_30px_60px_-15px_rgba(0,0,0,0.35)]",
-          "backdrop-blur"
+          "bg-gradient-to-br from-black/60 via-black/40 to-[#fc1e67]/20",
+          "border border-white/20",
+          "shadow-[0_0_0_1px_rgba(252,30,103,0.1)_inset,0_30px_60px_-15px_rgba(0,0,0,0.5)]",
+          "backdrop-blur-xl"
         )}
       >
         <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2 p-5 sm:p-6 md:p-8">
-          <Card className="bg-card border-border/70 text-foreground shadow-none">
+          <Card className="bg-gradient-to-br from-black/40 via-black/30 to-[#fc1e67]/10 border-white/20 text-white shadow-lg shadow-black/20 backdrop-blur-lg">
             <CardHeader className="space-y-3">
               <CardTitle
                 id="grants-apply-heading"
@@ -153,7 +153,7 @@ export default function GrantsApplicationSection({
             </CardContent>
           </Card>
 
-          <Card className="bg-card border-border/70 text-foreground shadow-none">
+          <Card className="bg-gradient-to-br from-black/40 via-black/30 to-[#fc1e67]/10 border-white/20 text-white shadow-lg shadow-black/20 backdrop-blur-lg">
             <CardHeader>
               <CardTitle className="text-xl sm:text-2xl font-semibold">
                 Apply to the waitlist

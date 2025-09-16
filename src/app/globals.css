@@ -4,13 +4,13 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 @theme {
---color-background: #0c1110;
+--color-background: #0f0a0c;
 --color-foreground: #e9eeec;
---color-card: #141917;
+--color-card: #1a1114;
 --color-card-foreground: #e9eeec;
---color-popover: #141917;
+--color-popover: #1a1114;
 --color-popover-foreground: #e9eeec;
---color-primary: #8b5cf6; /* violet-500 */
+--color-primary: #fc1e67; /* custom red */
 --color-primary-foreground: #061312;
 --color-secondary: #1a201e;
 --color-secondary-foreground: #d7dedb;
@@ -22,20 +22,20 @@
 --color-destructive-foreground: #0b0c0e;
 --color-border: #232825;
 --color-input: #232825;
---color-ring: #8b5cf6;
---color-chart-1: #8b5cf6;
+--color-ring: #fc1e67;
+--color-chart-1: #fc1e67;
 --color-chart-2: #3b82f6;
 --color-chart-3: #6366f1;
 --color-chart-4: #22d3ee;
 --color-chart-5: #ef4444;
 --color-sidebar: #0e1311;
 --color-sidebar-foreground: #c9d2ce;
---color-sidebar-primary: #8b5cf6;
+--color-sidebar-primary: #fc1e67;
 --color-sidebar-primary-foreground: #061312;
 --color-sidebar-accent: #141a18;
 --color-sidebar-accent-foreground: #d1d9d6;
 --color-sidebar-border: #222826;
---color-sidebar-ring: #8b5cf6;
+--color-sidebar-ring: #fc1e67;
 --radius-lg: 0.75rem;
 --radius-md: calc(0.75rem - 2px);
 --radius-sm: calc(0.75rem - 4px);
