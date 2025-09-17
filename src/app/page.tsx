@@ -51,12 +51,6 @@ export default function Page() {
             © {new Date().getFullYear()} Jobless CEO. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a
-              href="#hero"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Back to top
-            </a>
             <Link
               href="#apply"
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"
