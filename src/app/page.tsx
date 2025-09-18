@@ -46,18 +46,10 @@ export default function Page() {
 
       {/* Footer */}
       <footer className="relative bg-transparent">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-10 sm:px-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-center px-4 py-10 sm:px-6">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} Jobless CEO. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            <Link
-              href="#apply"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Apply
-            </Link>
-          </div>
         </div>
       </footer>
     </main>
