@@ -45,7 +45,9 @@ export default function HeroSection({ className }: HeroSectionProps) {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mx-auto mb-10 max-w-2xl text-lg text-gray-300 sm:text-xl"
         >
-          Discover grants for builders in Bangalore and find the perfect credit cards for your financial needs - all in one comprehensive platform.
+          A one-stop platform to discover grants, labs, and residencies
+          <br />
+          for builders, founders, and anyone struggling to find the right opportunities.
         </motion.p>
 
         {/* CTA Buttons with enhanced glass effect */}
