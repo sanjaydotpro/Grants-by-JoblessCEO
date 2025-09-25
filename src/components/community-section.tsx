@@ -53,56 +53,56 @@ export default function CommunitySection({
       style={style}
       aria-label="Community Discord"
     >
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-black/60 via-black/40 to-[#fc1e67]/20 border border-white/20 shadow-xl shadow-black/30 backdrop-blur-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 shadow-xl shadow-black/50">
         {/* Decorative background */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
         >
-          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-pink-500/10 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-pink-500/5 blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-pink-500/30 to-transparent" />
         </div>
 
         <div className="relative p-6 sm:p-8 md:p-10">
           <div className="flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-primary ring-1 ring-inset ring-border">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-800 text-pink-400 ring-1 ring-inset ring-zinc-700">
               <Group className="h-5 w-5" aria-hidden="true" />
             </span>
             <div className="min-w-0">
-              <h2 className="font-heading text-xl sm:text-2xl md:text-3xl leading-tight tracking-[-0.015em] text-foreground">
+              <h2 className="font-heading text-xl sm:text-2xl md:text-3xl leading-tight tracking-[-0.015em] text-white">
                 {heading}
               </h2>
-              <p className="mt-1 text-sm sm:text-base text-muted-foreground">
+              <p className="mt-1 text-sm sm:text-base text-zinc-400">
                 Join operators, investors, and builders shaping what&#39;s next.
               </p>
             </div>
           </div>
 
           <div className="mt-6 sm:mt-8">
-            <SeparatorHorizontal className="h-4 w-4 text-border" aria-hidden="true" />
+            <SeparatorHorizontal className="h-4 w-4 text-zinc-600" aria-hidden="true" />
           </div>
 
           <ul className="mt-6 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
             {benefits.map((b, idx) => (
               <li
-                key={`${b.title}-${idx}`}
-                className="group flex items-start gap-3 rounded-lg bg-gradient-to-br from-black/40 via-black/30 to-[#fc1e67]/10 border border-white/20 p-4 shadow-lg shadow-black/20 backdrop-blur-lg transition-all duration-300 hover:from-black/50 hover:via-black/40 hover:to-[#fc1e67]/15 hover:shadow-xl hover:shadow-black/30"
-              >
-                <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-primary/15 text-primary ring-1 ring-inset ring-primary/30 transition-transform group-hover:scale-105">
-                  <Dot className="h-4 w-4" aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm sm:text-base font-medium text-foreground break-words">
-                    {b.title}
+              key={`${b.title}-${idx}`}
+              className="group flex items-start gap-3 rounded-lg bg-zinc-800/50 border border-zinc-700 p-4 shadow-lg shadow-black/20 transition-all duration-300 hover:bg-zinc-800/70 hover:border-zinc-600 hover:shadow-xl hover:shadow-black/30"
+            >
+              <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-pink-500/20 text-pink-400 ring-1 ring-inset ring-pink-500/30 transition-transform group-hover:scale-105">
+                <Dot className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm sm:text-base font-medium text-white break-words">
+                  {b.title}
+                </p>
+                {b.description ? (
+                  <p className="mt-1 text-xs sm:text-sm text-zinc-400 break-words">
+                    {b.description}
                   </p>
-                  {b.description ? (
-                    <p className="mt-1 text-xs sm:text-sm text-muted-foreground break-words">
-                      {b.description}
-                    </p>
-                  ) : null}
-                </div>
-              </li>
+                ) : null}
+              </div>
+            </li>
             ))}
           </ul>
 
@@ -110,7 +110,7 @@ export default function CommunitySection({
             {hasUrl ? (
               <Button
                 asChild
-                className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-foreground/90 shadow-sm shadow-black/20 backdrop-blur ring-1 ring-white/10 transition-all hover:bg-white/20 hover:ring-white/20 hover:shadow-[0_10px_40px_rgba(0,0,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0"
+                className="group inline-flex items-center gap-2 rounded-full border border-pink-500/30 bg-pink-500/10 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-black/20 ring-1 ring-pink-500/20 transition-all hover:bg-pink-500/20 hover:ring-pink-500/30 hover:shadow-[0_10px_40px_rgba(0,0,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-0"
                 aria-label="Join our Discord server"
               >
                 <a
@@ -120,7 +120,7 @@ export default function CommunitySection({
                 >
                   {/* Official Discord logo */}
                   <svg
-                    className="h-4 w-4 text-[#fc1e67] drop-shadow-sm"
+                    className="h-4 w-4 text-pink-400 drop-shadow-sm"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
                     fill="currentColor"
@@ -134,12 +134,12 @@ export default function CommunitySection({
               <Button
                 disabled
                 aria-disabled="true"
-                className="bg-secondary text-secondary-foreground hover:bg-secondary cursor-not-allowed"
+                className="bg-zinc-800 text-zinc-500 hover:bg-zinc-800 cursor-not-allowed"
               >
                 {ctaLabel}
               </Button>
             )}
-            <span className="text-xs sm:text-sm text-muted-foreground">
+            <span className="text-xs sm:text-sm text-zinc-500">
               It&#39;s free. Be the first to hear about drops and meetups.
             </span>
           </div>
