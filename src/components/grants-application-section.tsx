@@ -72,7 +72,7 @@ export default function GrantsApplicationSection({
     if (!validate()) return
     try {
       setSubmitting(true)
-      // Simulate or delegate submission
+      // Submit to API endpoint
       if (onSubmit) {
         await onSubmit({
           name: name.trim(),
@@ -81,7 +81,29 @@ export default function GrantsApplicationSection({
           details: details.trim(),
         })
       } else {
-        await new Promise((r) => setTimeout(r, 900))
+        const response = await fetch('/api/v1/waitlist', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name.trim(),
+            email: email.trim(),
+            mobile: mobile.trim(),
+            details: details.trim(),
+          }),
+        })
+
+        const result = await response.json()
+
+        if (!response.ok) {
+          if (response.status === 409) {
+            setErrors({ email: 'This email is already on our waitlist' })
+            return
+          } else {
+            throw new Error(result.error || 'Failed to submit application')
+          }
+        }
       }
       setConfirmed(true)
       toast.success("You're on the waitlist. We'll notify you.")
@@ -106,14 +128,14 @@ export default function GrantsApplicationSection({
         className={cn(
           "w-full max-w-full",
           "rounded-[calc(var(--radius)+0.25rem)]",
-          "bg-gradient-to-br from-black/60 via-black/40 to-[#fc1e67]/20",
-          "border border-white/20",
-          "shadow-[0_0_0_1px_rgba(252,30,103,0.1)_inset,0_30px_60px_-15px_rgba(0,0,0,0.5)]",
-          "backdrop-blur-xl"
+          "bg-[var(--surface-1)]/80",
+          "border border-border",
+          "shadow-[0_0_0_1px_rgba(46,211,183,0.04)_inset,0_30px_60px_-15px_rgba(0,0,0,0.35)]",
+          "backdrop-blur"
         )}
       >
         <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2 p-5 sm:p-6 md:p-8">
-          <Card className="bg-gradient-to-br from-black/40 via-black/30 to-[#fc1e67]/10 border-white/20 text-white shadow-lg shadow-black/20 backdrop-blur-lg">
+          <Card className="bg-card border-border/70 text-foreground shadow-none">
             <CardHeader className="space-y-3">
               <CardTitle
                 id="grants-apply-heading"
@@ -153,7 +175,7 @@ export default function GrantsApplicationSection({
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-black/40 via-black/30 to-[#fc1e67]/10 border-white/20 text-white shadow-lg shadow-black/20 backdrop-blur-lg">
+          <Card className="bg-card border-border/70 text-foreground shadow-none">
             <CardHeader>
               <CardTitle className="text-xl sm:text-2xl font-semibold">
                 Apply to the waitlist
