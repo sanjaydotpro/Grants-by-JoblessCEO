@@ -1,0 +1,1 @@
+ALTER TABLE "grants" ALTER COLUMN "institution_id" DROP NOT NULL;
