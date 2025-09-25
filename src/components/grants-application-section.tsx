@@ -117,7 +117,7 @@ export default function GrantsApplicationSection({
   return (
     <section
       className={cn(
-        "w-full max-w-full bg-background text-foreground",
+        "w-full max-w-full bg-black text-white",
         "rounded-none",
         className
       )}
@@ -127,28 +127,28 @@ export default function GrantsApplicationSection({
       <div
         className={cn(
           "w-full max-w-full",
-          "rounded-[calc(var(--radius)+0.25rem)]",
-          "bg-[var(--surface-1)]/80",
-          "border border-border",
-          "shadow-[0_0_0_1px_rgba(46,211,183,0.04)_inset,0_30px_60px_-15px_rgba(0,0,0,0.35)]",
-          "backdrop-blur"
+          "rounded-2xl",
+          "bg-zinc-900/90",
+          "border border-zinc-800",
+          "shadow-2xl",
+          "backdrop-blur-sm"
         )}
       >
-        <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2 p-5 sm:p-6 md:p-8">
-          <Card className="bg-card border-border/70 text-foreground shadow-none">
-            <CardHeader className="space-y-3">
-              <CardTitle
+        <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2 p-6 sm:p-8 md:p-10">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h2
                 id="grants-apply-heading"
-                className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white"
               >
-                Grants, residencies, and free builder spaces
-              </CardTitle>
-              <CardDescription className="text-base text-muted-foreground">
+                Grants, residencies,<br />and free builder spaces
+              </h2>
+              <p className="text-base text-zinc-400 leading-relaxed">
                 Join a cohort of ambitious builders in Bangalore. We back teams with micro-grants,
                 short residencies, and workspace access — so you can move fast and ship.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-5">
+              </p>
+            </div>
+            <div className="space-y-4">
               <ul className="space-y-3">
                 {[
                   "Micro-grants for high-velocity experiments",
@@ -158,50 +158,50 @@ export default function GrantsApplicationSection({
                   <li key={i} className="flex items-start gap-3">
                     <span
                       aria-hidden
-                      className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-md bg-primary/15 text-primary ring-1 ring-primary/20"
+                      className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-sm bg-pink-500/20 text-pink-400"
                     >
                       <Check className="h-3.5 w-3.5" />
                     </span>
-                    <p className="text-sm sm:text-base">{item}</p>
+                    <p className="text-sm sm:text-base text-zinc-300">{item}</p>
                   </li>
                 ))}
               </ul>
-              <div className="rounded-md border border-border/60 bg-[var(--surface-2)]/60 p-4">
-                <p className="text-sm sm:text-base">
+              <div className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-4">
+                <p className="text-sm sm:text-base text-zinc-400">
                   Be early. Add yourself to the waitlist — we review applications on a rolling basis
                   and open spots every few weeks.
                 </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="bg-card border-border/70 text-foreground shadow-none">
-            <CardHeader>
-              <CardTitle className="text-xl sm:text-2xl font-semibold">
+          <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 space-y-6">
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl font-semibold text-white">
                 Apply to the waitlist
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
+              </h3>
+              <p className="text-zinc-400">
                 Tell us about you and what you're building. We'll reach out if there's a fit.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div>
               {confirmed ? (
                 <div
                   role="status"
                   aria-live="polite"
-                  className="flex flex-col items-start gap-3 rounded-lg border border-primary/30 bg-primary/10 p-5"
+                  className="flex flex-col items-start gap-3 rounded-lg border border-pink-500/30 bg-pink-500/10 p-5"
                 >
-                  <div className="flex items-center gap-2 text-primary">
+                  <div className="flex items-center gap-2 text-pink-400">
                     <FileCheck2 className="h-5 w-5" />
                     <span className="font-medium">You're on the waitlist.</span>
                   </div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-zinc-400">
                     We&apos;ll notify you with next steps as spots open up. Thanks for building with us.
                   </p>
                   <Button
                     type="button"
                     variant="secondary"
-                    className="mt-1"
+                    className="mt-1 bg-zinc-800 text-white hover:bg-zinc-700"
                     onClick={() => setConfirmed(false)}
                   >
                     Submit another
@@ -215,7 +215,7 @@ export default function GrantsApplicationSection({
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Full name</Label>
+                      <Label htmlFor="name" className="text-white">Full name</Label>
                       <Input
                         id="name"
                         name="name"
@@ -227,18 +227,18 @@ export default function GrantsApplicationSection({
                         aria-invalid={!!errors.name}
                         aria-describedby={errors.name ? "name-error" : undefined}
                         className={cn(
-                          "bg-[var(--surface-2)] border-border/70",
-                          "focus-visible:ring-2 focus-visible:ring-ring"
+                          "bg-zinc-800/50 border-zinc-700 text-white placeholder:text-zinc-500",
+                          "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:border-pink-500"
                         )}
                       />
                       {errors.name && (
-                        <p id="name-error" className="text-xs text-danger">
+                        <p id="name-error" className="text-xs text-red-400">
                           {errors.name}
                         </p>
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email" className="text-white">Email</Label>
                       <Input
                         id="email"
                         name="email"
@@ -251,12 +251,12 @@ export default function GrantsApplicationSection({
                         aria-invalid={!!errors.email}
                         aria-describedby={errors.email ? "email-error" : undefined}
                         className={cn(
-                          "bg-[var(--surface-2)] border-border/70",
-                          "focus-visible:ring-2 focus-visible:ring-ring"
+                          "bg-zinc-800/50 border-zinc-700 text-white placeholder:text-zinc-500",
+                          "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:border-pink-500"
                         )}
                       />
                       {errors.email && (
-                        <p id="email-error" className="text-xs text-danger">
+                        <p id="email-error" className="text-xs text-red-400">
                           {errors.email}
                         </p>
                       )}
@@ -264,7 +264,7 @@ export default function GrantsApplicationSection({
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="mobile">Mobile</Label>
+                    <Label htmlFor="mobile" className="text-white">Mobile</Label>
                     <Input
                       id="mobile"
                       name="mobile"
@@ -276,19 +276,19 @@ export default function GrantsApplicationSection({
                       aria-invalid={!!errors.mobile}
                       aria-describedby={errors.mobile ? "mobile-error" : undefined}
                       className={cn(
-                        "bg-[var(--surface-2)] border-border/70",
-                        "focus-visible:ring-2 focus-visible:ring-ring"
+                        "bg-zinc-800/50 border-zinc-700 text-white placeholder:text-zinc-500",
+                        "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:border-pink-500"
                       )}
                     />
                     {errors.mobile && (
-                      <p id="mobile-error" className="text-xs text-danger">
+                      <p id="mobile-error" className="text-xs text-red-400">
                         {errors.mobile}
                       </p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="details">What are you building?</Label>
+                    <Label htmlFor="details" className="text-white">What are you building?</Label>
                     <Textarea
                       id="details"
                       name="details"
@@ -298,27 +298,28 @@ export default function GrantsApplicationSection({
                       aria-invalid={!!errors.details}
                       aria-describedby={errors.details ? "details-error" : undefined}
                       className={cn(
-                        "min-h-[120px] bg-[var(--surface-2)] border-border/70",
-                        "focus-visible:ring-2 focus-visible:ring-ring"
+                        "min-h-[120px] bg-zinc-800/50 border-zinc-700 text-white placeholder:text-zinc-500",
+                        "focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:border-pink-500"
                       )}
                     />
                     {errors.details && (
-                      <p id="details-error" className="text-xs text-danger">
+                      <p id="details-error" className="text-xs text-red-400">
                         {errors.details}
                       </p>
                     )}
                   </div>
 
                   <div className="flex items-center justify-between gap-4">
-                    <p className="text-xs text-muted-foreground break-words">
+                    <p className="text-xs text-zinc-500 break-words">
                       By applying, you agree to be contacted about upcoming cohorts and opportunities.
                     </p>
                     <Button
                       type="submit"
                       disabled={submitting}
                       className={cn(
-                        "rounded-full border border-white/15 bg-white/10 px-5 py-2 text-sm font-medium text-foreground/90 shadow-sm shadow-black/20 backdrop-blur",
-                        "transition-all hover:bg-white/20 hover:shadow-[0_10px_40px_rgba(0,0,0,0.45)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0"
+                        "rounded-full border border-pink-500/20 bg-pink-500/10 px-6 py-2 text-sm font-medium text-white shadow-sm backdrop-blur",
+                        "transition-all hover:bg-pink-500/20 hover:border-pink-500/30 focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-0",
+                        "disabled:opacity-50 disabled:cursor-not-allowed"
                       )}
                     >
                       {submitting ? "Submitting..." : "Join the waitlist"}
@@ -326,8 +327,8 @@ export default function GrantsApplicationSection({
                   </div>
                 </form>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </section>
