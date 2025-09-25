@@ -7,7 +7,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 let _db: PostgresJsDatabase<typeof schema> | null = null;
 let _postgres: postgres.Sql | null = null;
 let _useMockDb = false;
-let _forceRealDb = false;
+let _forceRealDb = true; // Force using real database
 
 // Lazy database initialization function
 export function getDb() {
@@ -35,7 +35,7 @@ export function getDb() {
     try {
       // Create PostgreSQL connection
       _postgres = postgres(databaseUrl, {
-        ssl: process.env.DATABASE_SSL === 'true' ? 'require' : false,
+        ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
         max: parseInt(process.env.DATABASE_POOL_MAX || '20'),
         idle_timeout: parseInt(process.env.DATABASE_POOL_IDLE_TIMEOUT || '30'),
         connect_timeout: 60

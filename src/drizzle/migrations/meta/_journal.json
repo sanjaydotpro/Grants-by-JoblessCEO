@@ -8,6 +8,13 @@
       "when": 1757591114872,
       "tag": "0000_sticky_old_lace",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1758758470805,
+      "tag": "0001_free_vargas",
+      "breakpoints": true
     }
   ]
 }

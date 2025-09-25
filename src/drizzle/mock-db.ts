@@ -21,6 +21,16 @@ interface Grant {
   updated_at: string;
 }
 
+interface WaitlistEntry {
+  id: string;
+  name: string;
+  email: string;
+  mobile: string;
+  details: string;
+  created_at: string;
+  updated_at: string;
+}
+
 // In-memory storage
 let institutions: Institution[] = [
   {
@@ -84,6 +94,8 @@ let grants: Grant[] = [
     updated_at: new Date().toISOString()
   }
 ];
+
+let waitlistEntries: WaitlistEntry[] = [];
 
 let nextInstitutionId = 4;
 let nextGrantId = 4;
@@ -160,9 +172,115 @@ export const mockDb = {
       }
       return Promise.resolve(null);
     }
+  },
+
+  waitlist: {
+    findMany: () => Promise.resolve(waitlistEntries),
+    findFirst: (where: { email: string }) => Promise.resolve(waitlistEntries.find(w => w.email === where.email)),
+    create: (data: { values: Omit<WaitlistEntry, 'id' | 'created_at' | 'updated_at'> }) => {
+      const newEntry: WaitlistEntry = {
+        id: crypto.randomUUID(),
+        ...data.values,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      waitlistEntries.push(newEntry);
+      return Promise.resolve([newEntry]);
+    },
+    update: (where: { id: string }, data: { set: Partial<WaitlistEntry> }) => {
+      const index = waitlistEntries.findIndex(w => w.id === where.id);
+      if (index !== -1) {
+        waitlistEntries[index] = { ...waitlistEntries[index], ...data.set, updated_at: new Date().toISOString() };
+        return Promise.resolve([waitlistEntries[index]]);
+      }
+      return Promise.resolve([]);
+    },
+    delete: (where: { id: string }) => {
+      const index = waitlistEntries.findIndex(w => w.id === where.id);
+      if (index !== -1) {
+        waitlistEntries.splice(index, 1);
+      }
+      return Promise.resolve(waitlistEntries.filter(w => w.id !== where.id));
+    }
   }
 };
 
 export function getMockDb() {
-  return mockDb;
+  return {
+    select: (fields: any) => ({
+      from: (table: any) => ({
+        where: (condition: any) => ({
+          orderBy: (order: any) => Promise.resolve(waitlistEntries.map(entry => ({
+            id: entry.id,
+            name: entry.name,
+            email: entry.email,
+            mobile: entry.mobile,
+            details: entry.details,
+            createdAt: entry.created_at
+          }))),
+          limit: (count: number) => Promise.resolve(waitlistEntries.slice(0, count))
+        }),
+        orderBy: (order: any) => Promise.resolve(waitlistEntries.map(entry => ({
+          id: entry.id,
+          name: entry.name,
+          email: entry.email,
+          mobile: entry.mobile,
+          details: entry.details,
+          createdAt: entry.created_at
+        }))),
+        limit: (count: number) => Promise.resolve(waitlistEntries.slice(0, count)),
+        then: (callback: any) => Promise.resolve(waitlistEntries.map(entry => ({
+          id: entry.id,
+          name: entry.name,
+          email: entry.email,
+          mobile: entry.mobile,
+          details: entry.details,
+          createdAt: entry.created_at
+        }))).then(callback)
+      }),
+      then: (callback: any) => Promise.resolve(waitlistEntries.map(entry => ({
+        id: entry.id,
+        name: entry.name,
+        email: entry.email,
+        mobile: entry.mobile,
+        details: entry.details,
+        createdAt: entry.created_at
+      }))).then(callback)
+    }),
+    insert: (table: any) => ({
+      values: (data: any) => ({
+        returning: (fields: any) => {
+          // For now, assume all inserts are for waitlist since it's the only table we're implementing
+          // In a real implementation, you'd check the table structure properly
+          if (data && data.name && data.email && data.mobile && data.details) {
+            // Check for duplicate email
+            const existingEntry = waitlistEntries.find(w => w.email === data.email);
+            if (existingEntry) {
+              const error = new Error('duplicate key value violates unique constraint');
+              error.name = 'PostgresError';
+              throw error;
+            }
+            
+            const newEntry: WaitlistEntry = {
+              id: crypto.randomUUID(),
+              name: data.name,
+              email: data.email,
+              mobile: data.mobile,
+              details: data.details,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            };
+            waitlistEntries.push(newEntry);
+            return Promise.resolve([{
+              id: newEntry.id,
+              name: newEntry.name,
+              email: newEntry.email,
+              createdAt: newEntry.created_at
+            }]);
+          }
+          return Promise.resolve([]);
+        }
+      })
+    })
+  };
 }

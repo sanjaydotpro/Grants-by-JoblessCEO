@@ -46,6 +46,22 @@ export const newsUpdates = pgTable("news_updates", {
   };
 });
 
+// Waitlist table
+export const waitlist = pgTable("waitlist", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  mobile: text("mobile").notNull(),
+  details: text("details").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull()
+}, (table) => {
+  return {
+    emailIdx: index("waitlist_email_idx").on(table.email),
+    createdAtIdx: index("waitlist_created_at_idx").on(table.createdAt)
+  };
+});
+
 // Define relations
 export const institutionsRelations = relations(institutions, ({ many }) => ({
   grants: many(grants)
@@ -62,12 +78,14 @@ export const grantsRelations = relations(grants, ({ one }) => ({
 export const schema = {
   institutions,
   grants,
-  newsUpdates
+  newsUpdates,
+  waitlist
 };
 
 // Export table names for migrations
 export const tableNames = {
   institutions: "institutions",
   grants: "grants",
-  newsUpdates: "news_updates"
+  newsUpdates: "news_updates",
+  waitlist: "waitlist"
 } as const;
