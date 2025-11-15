@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import Link from "next/link";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,25 +19,107 @@ type Labspace = {
   link: string;
 };
 
-const labspaces: Labspace[] = [
-  { id: "ls-1", name: "Berkeley Biotech Labspace", operator: "Founders Lab", access: "Membership", location: "Berkeley, CA", tags: ["Biotech", "Wet Lab"], link: "https://example.com/lab/berkeley" },
-  { id: "ls-2", name: "NYC Hardware Lab", operator: "ProtoLabs", access: "Application", location: "New York, NY", tags: ["Hardware", "Robotics"], link: "https://example.com/lab/nyc" },
-  { id: "ls-3", name: "SF AI + Robotics Lab", operator: "Open Builders", access: "Invitation", location: "San Francisco, CA", tags: ["AI", "Robotics"], link: "https://example.com/lab/sf" },
-  { id: "ls-4", name: "Boston Climate Labspace", operator: "776 Community", access: "Membership", location: "Boston, MA", tags: ["Climate", "Materials"], link: "https://example.com/lab/boston" },
-  { id: "ls-5", name: "Austin Maker Lab", operator: "Builders Collective", access: "Drop-in", location: "Austin, TX", tags: ["Maker", "Prototyping"], link: "https://example.com/lab/austin" },
-];
-
 export default function LabspacesPage() {
+  const [labs, setLabs] = useState<Labspace[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [sortBy, setSortBy] = useState("name");
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
+  useEffect(() => {
+    const url = "https://docs.google.com/spreadsheets/d/1m9zB0EDYPYDxPnadnyJlpLpI4zx8voQ2JTkqV2xUQes/export?format=csv";
+    const parseCsv = (text: string) => {
+      const rows: string[][] = [];
+      let row: string[] = [];
+      let field = "";
+      let inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        if (inQuotes) {
+          if (c === '"') {
+            if (text[i + 1] === '"') {
+              field += '"';
+              i++;
+            } else {
+              inQuotes = false;
+            }
+          } else {
+            field += c;
+          }
+        } else {
+          if (c === '"') {
+            inQuotes = true;
+          } else if (c === ',') {
+            row.push(field);
+            field = "";
+          } else if (c === '\n') {
+            row.push(field);
+            rows.push(row);
+            row = [];
+            field = "";
+          } else if (c === '\r') {
+          } else {
+            field += c;
+          }
+        }
+      }
+      if (field.length > 0 || row.length > 0) {
+        row.push(field);
+        rows.push(row);
+      }
+      return rows;
+    };
+    const mapRows = (rows: string[]): Labspace | null => {
+      return null;
+    };
+    fetch(url)
+      .then((r) => r.text())
+      .then((text) => {
+        const rows = parseCsv(text);
+        if (!rows.length) return;
+        const header = rows[0].map((h) => h.trim().toLowerCase());
+        const idx = (k: string) => header.indexOf(k);
+        const iName = idx("lab name");
+        const iCityState = idx("city/state");
+        const iCountry = idx("country");
+        const iWebsite = idx("website");
+        const iSpecialty = idx("lab speciality");
+        const iType = idx("lab type");
+        const data: Labspace[] = rows.slice(1).map((r, i) => {
+          const name = r[iName] || "";
+          const location = r[iCityState] || "";
+          const country = r[iCountry] || "";
+          const website = r[iWebsite] || "";
+          const specialtyRaw = r[iSpecialty] || "";
+          const typeRaw = r[iType] || "";
+          const tags = [
+            ...specialtyRaw.split(/[,;|]/).map((t) => t.trim()).filter(Boolean),
+          ];
+          const access = typeRaw.trim();
+          return {
+            id: `ls-${i + 1}`,
+            name,
+            operator: country,
+            access,
+            location,
+            tags,
+            link: website,
+          };
+        }).filter((l) => l.name);
+        setLabs(data);
+      })
+      .catch(() => {
+        setLabs([]);
+      });
+  }, []);
+
   const filtered = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
-    const cats = ["all", "Biotech", "Hardware", "AI", "Robotics", "Climate", "Materials", "Wet Lab", "Maker", "Prototyping"];
-    const list = labspaces.filter((l) => {
+    const tagSet = new Set<string>();
+    labs.forEach((l) => l.tags.forEach((t) => tagSet.add(t)));
+    const cats = ["all", ...Array.from(tagSet)];
+    const list = labs.filter((l) => {
       const matchesCat = categoryFilter === "all" || l.tags.map((t) => t.toLowerCase()).includes(categoryFilter.toLowerCase());
       if (!q) return matchesCat;
       const inName = l.name.toLowerCase().includes(q);
@@ -48,7 +131,7 @@ export default function LabspacesPage() {
     });
     list.sort((a, b) => (sortBy === "name" ? a.name.localeCompare(b.name) : a.location.localeCompare(b.location)));
     return { list, cats };
-  }, [searchQuery, categoryFilter, sortBy]);
+  }, [labs, searchQuery, categoryFilter, sortBy]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -108,7 +191,14 @@ export default function LabspacesPage() {
                 </TableHeader>
                 <TableBody>
                   {filtered.list.map((l) => (
-                    <TableRow key={l.id} onClick={() => window.open(l.link, "_blank")} className="cursor-pointer">
+                    <TableRow
+                      key={l.id}
+                      onClick={() => {
+                        const slug = encodeURIComponent(l.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""));
+                        window.location.href = `/labspaces/${slug}`;
+                      }}
+                      className="cursor-pointer"
+                    >
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{l.name.slice(0, 1)}</div>
@@ -120,7 +210,7 @@ export default function LabspacesPage() {
                       </TableCell>
                       <TableCell>
                         <div className="text-gray-900 font-semibold">{l.access}</div>
-                        <div className="text-xs text-gray-500 mt-1">Learn more →</div>
+                        <div className="text-xs text-gray-500 mt-1">Open details →</div>
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-wrap gap-1">
@@ -139,7 +229,7 @@ export default function LabspacesPage() {
             </div>
             <div className="md:hidden space-y-3">
               {filtered.list.map((l) => (
-                <button key={l.id} onClick={() => window.open(l.link, "_blank")} className="w-full text-left bg-white/90 backdrop-blur-xl rounded-2xl border border-black/10 p-4">
+                <Link key={l.id} href={`/labspaces/${encodeURIComponent(l.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""))}`} className="block w-full text-left bg-white/90 backdrop-blur-xl rounded-2xl border border-black/10 p-4">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{l.name.slice(0, 1)}</div>
                     <div className="flex-1">
@@ -154,7 +244,7 @@ export default function LabspacesPage() {
                       <Badge key={tag} className="bg-black/5 text-black border border-black/10">{tag}</Badge>
                     ))}
                   </div>
-                </button>
+                </Link>
               ))}
             </div>
           </>
