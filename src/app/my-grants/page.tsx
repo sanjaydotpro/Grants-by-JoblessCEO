@@ -50,7 +50,7 @@ import thielImg from '../../../images/thiel.png';
 import asteraImg from '../../../images/Astera Residency Program.jpg';
 import bagelFundImg from '../../../images/Bagel Fund.png';
 import breakthroughEnergyImg from '../../../images/Breakthrough Energy Fellows.jpeg';
-import cactusCapitalImg from '../../../images/Cactus Capital.jpeg';
+import cactusCapitalImg from '../../../images/Cactus Capital.avif';
 import cryoDaoImg from '../../../images/CryoDAO.svg';
 import foundryImg from '../../../images/Foundry.webp';
 import gcVentureImg from '../../../images/General Catalyst Venture Fellows.jpg';
