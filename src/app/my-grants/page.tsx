@@ -47,6 +47,23 @@ import siliconValleyFellowshipImg from '../../../images/siliconvalley fellowship
 import teloraImg from '../../../images/Telora.webp';
 import formidableFundImg from '../../../images/The Formidable Fund .webp';
 import thielImg from '../../../images/thiel.png';
+import asteraImg from '../../../images/Astera Residency Program.jpg';
+import bagelFundImg from '../../../images/Bagel Fund.png';
+import breakthroughEnergyImg from '../../../images/Breakthrough Energy Fellows.jpeg';
+import cactusCapitalImg from '../../../images/Cactus Capital.jpeg';
+import cryoDaoImg from '../../../images/CryoDAO.svg';
+import foundryImg from '../../../images/Foundry.webp';
+import gcVentureImg from '../../../images/General Catalyst Venture Fellows.jpg';
+import goHumanImg from '../../../images/Go Human.jpeg';
+import greenhornImg from '../../../images/Greenhorn Microgrants.png';
+import manifestImg from '../../../images/Manifest Grants.jpg';
+import polarFellowshipImg from '../../../images/Polar Fellowship.png';
+import rodCatalystImg from '../../../images/Roddenberry Catalyst.webp';
+import sciFounderImg from '../../../images/SciFounder Fellowship.jpg';
+import slavinImg from '../../../images/Slavin Foundation.png';
+import sffImg from '../../../images/Survival and Flourishing Fund.jpeg';
+import stochasticImg from '../../../images/Stochastic Labs Summer Residency.webp';
+import techyonImg from '../../../images/Techyon Microgrants.png';
 import Link from 'next/link';
 
 export default function MyGrantsPage() {
@@ -97,6 +114,23 @@ export default function MyGrantsPage() {
     'telora': teloraImg,
     'the formidable fund': formidableFundImg,
     'thiel fellowship': thielImg,
+    'astera residency program': asteraImg,
+    'bagel fund': bagelFundImg,
+    'breakthrough energy fellows': breakthroughEnergyImg,
+    'cactus capital': cactusCapitalImg,
+    'cryodao': cryoDaoImg,
+    'molecular foundry (lbnl)': foundryImg,
+    'general catalyst venture fellows': gcVentureImg,
+    'go human': goHumanImg,
+    'greenhorn microgrants': greenhornImg,
+    'manifest grants': manifestImg,
+    'polar fellowship': polarFellowshipImg,
+    'roddenberry catalyst': rodCatalystImg,
+    'scifounder fellowship': sciFounderImg,
+    'slavin foundation': slavinImg,
+    'survival and flourishing fund': sffImg,
+    'stochastic labs summer residency': stochasticImg,
+    'techyon microgrants': techyonImg,
   };
 
   const containLogoNames = [

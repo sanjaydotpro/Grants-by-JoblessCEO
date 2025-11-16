@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -55,6 +56,17 @@ export default function HackerHousesPage() {
     list.sort((a, b) => (sortBy === "name" ? a.name.localeCompare(b.name) : a.location.localeCompare(b.location)));
     return { list, cats };
   }, [searchQuery, categoryFilter, sortBy]);
+
+  const houseImages: Record<string, any> = {
+    'aevitas house': require('../../../images/Aevitas House.png'),
+    'nautilus': require('../../../images/Nautilus.jpg'),
+    'fr8': require('../../../images/FR8.jpeg'),
+    'haight st. commons': require('../../../images/Haight St. Commons.png'),
+    'nucleate dojo house': require('../../../images/Nucleate .jpg'),
+    'edge city': require('../../../images/Edge City.svg'),
+    'the bridge': require('../../../images/The Bridge.webp'),
+    'the residency': require('../../../images/The Residency.png'),
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -117,7 +129,11 @@ export default function HackerHousesPage() {
                     <TableRow key={h.id} onClick={() => router.push(`/hacker-houses/${h.id}`)} className="cursor-pointer">
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{h.name.slice(0, 1)}</div>
+                          {houseImages[h.name.toLowerCase()] ? (
+                            <Image src={houseImages[h.name.toLowerCase()]} alt={h.name} width={36} height={36} className="w-9 h-9 rounded-md object-cover" />
+                          ) : (
+                            <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{h.name.slice(0, 1)}</div>
+                          )}
                           <div>
                             <div className="font-semibold text-gray-900">{h.name}</div>
                             <div className="text-xs text-gray-600">{h.audience}</div>
@@ -148,7 +164,11 @@ export default function HackerHousesPage() {
               {filtered.list.map((h) => (
                 <button key={h.id} onClick={() => router.push(`/hacker-houses/${h.id}`)} className="w-full text-left bg-white/90 backdrop-blur-xl rounded-2xl border border-black/10 p-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{h.name.slice(0, 1)}</div>
+                    {houseImages[h.name.toLowerCase()] ? (
+                      <Image src={houseImages[h.name.toLowerCase()]} alt={h.name} width={36} height={36} className="w-9 h-9 rounded-md object-cover" />
+                    ) : (
+                      <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{h.name.slice(0, 1)}</div>
+                    )}
                     <div className="flex-1">
                       <div className="font-semibold text-gray-900">{h.name}</div>
                       <div className="text-xs text-gray-600">{h.audience}</div>

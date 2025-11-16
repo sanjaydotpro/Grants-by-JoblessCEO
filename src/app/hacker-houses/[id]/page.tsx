@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { houses } from "@/lib/hacker-houses-data";
@@ -33,7 +34,11 @@ export default function HackerHouseDetailPage() {
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-28 pb-4">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-md bg-black flex items-center justify-center text-white font-bold">{house.name.slice(0, 2)}</div>
+          {houseImages[house.name.toLowerCase()] ? (
+            <Image src={houseImages[house.name.toLowerCase()]} alt={house.name} width={48} height={48} className="w-12 h-12 rounded-md object-cover" />
+          ) : (
+            <div className="w-12 h-12 rounded-md bg-black flex items-center justify-center text-white font-bold">{house.name.slice(0, 2)}</div>
+          )}
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">{house.name}</h1>
             <p className="text-sm text-gray-600">{house.location}</p>
@@ -128,3 +133,13 @@ export default function HackerHouseDetailPage() {
     </div>
   );
 }
+  const houseImages: Record<string, any> = {
+    'aevitas house': require('../../../../images/Aevitas House.png'),
+    'nautilus': require('../../../../images/Nautilus.jpg'),
+    'fr8': require('../../../../images/FR8.jpeg'),
+    'haight st. commons': require('../../../../images/Haight St. Commons.png'),
+    'nucleate dojo house': require('../../../../images/Nucleate .jpg'),
+    'edge city': require('../../../../images/Edge City.svg'),
+    'the bridge': require('../../../../images/The Bridge.webp'),
+    'the residency': require('../../../../images/The Residency.png'),
+  };
