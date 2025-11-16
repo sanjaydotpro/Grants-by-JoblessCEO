@@ -13,6 +13,7 @@ import Image from 'next/image';
 import logo1517 from '../../../images/1517.png';
 import logo776 from '../../../images/776.jpg';
 import emergentLogo from '../../../images/MercatusCenter.jpg';
+import evmLogo from '../../../images/logo-rect.webp';
 import antikytheraImg from '../../../images/Antikythera Studio.png';
 import awesomeImg from '../../../images/Awesome Foundation .png';
 import brainsImg from '../../../images/Brains.png';
@@ -54,7 +55,7 @@ import thielImg from '../../../images/thiel.png';
 import asteraImg from '../../../images/Astera Residency Program.jpg';
 import bagelFundImg from '../../../images/Bagel Fund.png';
 import breakthroughEnergyImg from '../../../images/Breakthrough Energy Fellows.jpeg';
-import cactusCapitalImg from '../../../images/Cactus Capital.jpeg';
+import cactusCapitalImg from '../../../images/Cactus Capital.avif';
 import cryoDaoImg from '../../../images/CryoDAO.svg';
 import foundryImg from '../../../images/Foundry.webp';
 import gcVentureImg from '../../../images/General Catalyst Venture Fellows.jpg';
@@ -306,6 +307,16 @@ export default function DashboardPage() {
                             return (
                               <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
                                 <Image src={emergentLogo} alt="Emergent Ventures" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (
+                            grant.provider.toLowerCase().includes('evm') ||
+                            grant.name.toLowerCase().includes('evm')
+                          ) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
+                                <Image src={evmLogo} alt="EVM Capital" width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
                           }

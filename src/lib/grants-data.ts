@@ -716,16 +716,16 @@ export const grantsData: Grant[] = [
   },
   {
     id: "51",
-    name: "Young Builders Society",
+    name: "evm capital",
     provider: "evm.capital",
     amount: "$100 - $600",
     deadline: "Rolling",
     category: "Youth",
     location: "Global",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop",
+    image: "/images/logo-rect.webp",
     description: "Give ambitious builders under the age of 23 the financial boost they need to bring their ideas to life, with a strong focus on originality, impact, and practicality",
     eligibility: ["Under 23", "Original ideas", "Practical projects"],
-    applicationLink: "https://www.youngbuildersociety.com/",
+    applicationLink: "https://www.evm.capital/",
     tags: ["Youth", "Builders", "Micro-grants"]
   },
   {
