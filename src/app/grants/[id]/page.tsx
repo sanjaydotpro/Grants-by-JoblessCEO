@@ -67,7 +67,8 @@ import sffImg from '../../../../images/Survival and Flourishing Fund.jpeg';
 import stochasticImg from '../../../../images/Stochastic Labs Summer Residency.webp';
 import techyonImg from '../../../../images/Techyon Microgrants.png';
 import mercatusImg from '../../../../images/MercatusCenter.jpg';
-import evmLogo from '../../../../images/logo-rect.webp';
+import evmLogo from '../../../../images/evm capital.avif';
+import choppedVCLogo from '../../../../images/Chopped VC.png';
 
 export default function GrantDetailPage() {
   const params = useParams();
@@ -111,6 +112,7 @@ export default function GrantDetailPage() {
     'emergent ventures': mercatusImg,
     'emergent ventures india': mercatusImg,
     'evm capital': evmLogo,
+    'chopped vc': choppedVCLogo,
     'foresight fellowship': foresightImg,
     'gitcoin grants': gitcoinImg,
     'longevity fellowship': longevityImg,
@@ -163,7 +165,7 @@ export default function GrantDetailPage() {
         <div className="flex items-center gap-3 mb-6">
           {(() => {
             const key = grant.name.trim().toLowerCase();
-            const matched = grantImages[key];
+            const matched = grantImages[key] || grant.image;
             const isContain = ['inflection grants'].some((s) => key.includes(s));
             const className = isContain ? 'object-contain object-center' : 'object-cover object-center';
             const wrapperClass = isContain ? 'w-12 h-12 rounded-md overflow-hidden bg-white p-1' : 'w-12 h-12 rounded-md overflow-hidden bg-transparent';

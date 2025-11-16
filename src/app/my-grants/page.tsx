@@ -65,7 +65,8 @@ import sffImg from '../../../images/Survival and Flourishing Fund.jpeg';
 import stochasticImg from '../../../images/Stochastic Labs Summer Residency.webp';
 import techyonImg from '../../../images/Techyon Microgrants.png';
 import mercatusImg from '../../../images/MercatusCenter.jpg';
-import evmLogo from '../../../images/logo-rect.webp';
+import evmLogo from '../../../images/evm capital.avif';
+import choppedVCLogo from '../../../images/Chopped VC.png';
 import Link from 'next/link';
 
 export default function MyGrantsPage() {
@@ -90,6 +91,7 @@ export default function MyGrantsPage() {
     'emergent ventures': mercatusImg,
     'emergent ventures india': mercatusImg,
     'evm capital': evmLogo,
+    'chopped vc': choppedVCLogo,
     'foresight fellowship': foresightImg,
     'gitcoin grants': gitcoinImg,
     'henry arnhold fellowship': henryArnholdImg,

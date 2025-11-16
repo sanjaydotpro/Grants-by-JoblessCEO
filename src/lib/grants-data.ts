@@ -722,7 +722,7 @@ export const grantsData: Grant[] = [
     deadline: "Rolling",
     category: "Youth",
     location: "Global",
-    image: "/images/logo-rect.webp",
+    image: "/images/evm capital.avif",
     description: "Give ambitious builders under the age of 23 the financial boost they need to bring their ideas to life, with a strong focus on originality, impact, and practicality",
     eligibility: ["Under 23", "Original ideas", "Practical projects"],
     applicationLink: "https://www.evm.capital/",
@@ -853,5 +853,20 @@ export const grantsData: Grant[] = [
     eligibility: ["Young students", "STEM projects", "US-based"],
     applicationLink: "https://greenhorninnovationfund.org/",
     tags: ["STEM", "Students", "Micro-grants"]
+  }
+  ,
+  {
+    id: "61",
+    name: "Chopped VC",
+    provider: "Chopped VC",
+    amount: "Varies",
+    deadline: "Rolling",
+    category: "Entrepreneurship",
+    location: "Global",
+    image: "https://chopped.vc/favicon.ico",
+    description: "Backs ‘chopped’ founders via the Genesis Fund — gritty builders who are too early for traditional investors. Supports creativity, ambition, and relentless execution.",
+    eligibility: ["Early-stage founders", "High grit/commitment", "Ambitious projects"],
+    applicationLink: "https://chopped.vc/",
+    tags: ["Startup", "Venture", "Microgrants"]
   }
 ];

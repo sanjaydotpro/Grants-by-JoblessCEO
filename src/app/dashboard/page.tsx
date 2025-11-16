@@ -13,7 +13,7 @@ import Image from 'next/image';
 import logo1517 from '../../../images/1517.png';
 import logo776 from '../../../images/776.jpg';
 import emergentLogo from '../../../images/MercatusCenter.jpg';
-import evmLogo from '../../../images/logo-rect.webp';
+import evmLogo from '../../../images/evm capital.avif';
 import antikytheraImg from '../../../images/Antikythera Studio.png';
 import awesomeImg from '../../../images/Awesome Foundation .png';
 import brainsImg from '../../../images/Brains.png';
@@ -69,6 +69,7 @@ import slavinImg from '../../../images/Slavin Foundation.png';
 import sffImg from '../../../images/Survival and Flourishing Fund.jpeg';
 import stochasticImg from '../../../images/Stochastic Labs Summer Residency.webp';
 import techyonImg from '../../../images/Techyon Microgrants.png';
+import choppedVCLogo from '../../../images/Chopped VC.png';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -137,6 +138,7 @@ export default function DashboardPage() {
     'survival and flourishing fund': sffImg,
     'stochastic labs summer residency': stochasticImg,
     'techyon microgrants': techyonImg,
+    'chopped vc': choppedVCLogo,
   };
 
   const filteredAndSortedGrants = useMemo(() => {
@@ -317,6 +319,13 @@ export default function DashboardPage() {
                             return (
                               <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
                                 <Image src={evmLogo} alt="EVM Capital" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.image) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
+                                <Image src={grant.image} alt={grant.name} width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
                           }
