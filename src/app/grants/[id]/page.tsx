@@ -66,6 +66,7 @@ import slavinImg from '../../../../images/Slavin Foundation.png';
 import sffImg from '../../../../images/Survival and Flourishing Fund.jpeg';
 import stochasticImg from '../../../../images/Stochastic Labs Summer Residency.webp';
 import techyonImg from '../../../../images/Techyon Microgrants.png';
+import mercatusImg from '../../../../images/MercatusCenter.jpg';
 
 export default function GrantDetailPage() {
   const params = useParams();
@@ -106,8 +107,8 @@ export default function GrantDetailPage() {
     'ea infrastructure funds': eaInfraImg,
     'edge city fellowship': edgeCityImg,
     'the civic innovators fellowship': civicInnovatorsImg,
-    'emergent ventures': emergentEvImg,
-    'emergent ventures india': emergentEvIndiaImg,
+    'emergent ventures': mercatusImg,
+    'emergent ventures india': mercatusImg,
     'foresight fellowship': foresightImg,
     'gitcoin grants': gitcoinImg,
     'longevity fellowship': longevityImg,

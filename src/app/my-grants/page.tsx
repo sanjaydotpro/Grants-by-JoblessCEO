@@ -64,6 +64,7 @@ import slavinImg from '../../../images/Slavin Foundation.png';
 import sffImg from '../../../images/Survival and Flourishing Fund.jpeg';
 import stochasticImg from '../../../images/Stochastic Labs Summer Residency.webp';
 import techyonImg from '../../../images/Techyon Microgrants.png';
+import mercatusImg from '../../../images/MercatusCenter.jpg';
 import Link from 'next/link';
 
 export default function MyGrantsPage() {
@@ -85,8 +86,8 @@ export default function MyGrantsPage() {
     'ea infrastructure funds': eaInfraImg,
     'edge city fellowship': edgeCityImg,
     'the civic innovators fellowship': civicInnovatorsImg,
-    'emergent ventures': emergentEvImg,
-    'emergent ventures india': emergentEvIndiaImg,
+    'emergent ventures': mercatusImg,
+    'emergent ventures india': mercatusImg,
     'foresight fellowship': foresightImg,
     'gitcoin grants': gitcoinImg,
     'henry arnhold fellowship': henryArnholdImg,
