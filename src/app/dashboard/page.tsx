@@ -22,8 +22,6 @@ import dojoImg from '../../../images/DojoGrants.jpg';
 import eaAnimalImg from '../../../images/EA Animal Welfare Fund.avif';
 import eaInfraImg from '../../../images/EA Infrastructure Funds.avif';
 import edgeCityImg from '../../../images/Edge City Fellowship.svg';
-import emergentEvImg from '../../../images/Emergent Ventures .jpg';
-import emergentEvIndiaImg from '../../../images/Emergent Ventures India.jpg';
 import foresightImg from '../../../images/Foresight Fellowship.png';
 import gitcoinImg from '../../../images/Gitcoin Grants.svg';
 import longevityImg from '../../../images/Longevity Fellowship.jpeg';
@@ -92,8 +90,8 @@ export default function DashboardPage() {
     'ea infrastructure funds': eaInfraImg,
     'edge city fellowship': edgeCityImg,
     'the civic innovators fellowship': civicInnovatorsImg,
-    'emergent ventures': emergentEvImg,
-    'emergent ventures india': emergentEvIndiaImg,
+    'emergent ventures': emergentLogo,
+    'emergent ventures india': emergentLogo,
     'foresight fellowship': foresightImg,
     'gitcoin grants': gitcoinImg,
     'longevity fellowship': longevityImg,
@@ -274,7 +272,7 @@ export default function DashboardPage() {
                           const matched = grantImages[key];
                           const isContain = ['inflection grants'].some((s) => key.includes(s));
                           const className = isContain ? 'object-contain object-center' : 'object-cover object-center';
-                          const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent';
+                          const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5 border border-black/10' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10';
                           if (matched) {
                             return (
                               <div className={wrapperClass}>
@@ -287,7 +285,7 @@ export default function DashboardPage() {
                             grant.name.toLowerCase().includes('1517')
                           ) {
                               return (
-                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
+                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
                                   <Image src={logo1517} alt="1517 Fund" width={36} height={36} className="object-cover object-center" />
                                 </div>
                               );
@@ -297,7 +295,7 @@ export default function DashboardPage() {
                             grant.name.toLowerCase().includes('776')
                           ) {
                               return (
-                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
+                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
                                   <Image src={logo776} alt="776 Foundation" width={36} height={36} className="object-cover object-center" />
                                 </div>
                               );
@@ -307,7 +305,7 @@ export default function DashboardPage() {
                             grant.provider.toLowerCase().includes('mercatus')
                           ) {
                             return (
-                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
                                 <Image src={emergentLogo} alt="Emergent Ventures" width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
@@ -317,14 +315,14 @@ export default function DashboardPage() {
                             grant.name.toLowerCase().includes('evm')
                           ) {
                             return (
-                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
                                 <Image src={evmLogo} alt="EVM Capital" width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
                           }
                           if (grant.image) {
                             return (
-                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent">
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
                                 <Image src={grant.image} alt={grant.name} width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
@@ -371,7 +369,7 @@ export default function DashboardPage() {
                       const matched = grantImages[key];
                       const isContain = ['inflection grants'].some((s) => key.includes(s));
                       const className = isContain ? 'object-contain object-center' : 'object-cover object-center';
-                      const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent';
+                      const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5 border border-black/10' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10';
                       if (matched) {
                         return (
                           <div className={wrapperClass}>

@@ -168,7 +168,7 @@ export default function GrantDetailPage() {
             const matched = grantImages[key] || grant.image;
             const isContain = ['inflection grants'].some((s) => key.includes(s));
             const className = isContain ? 'object-contain object-center' : 'object-cover object-center';
-            const wrapperClass = isContain ? 'w-12 h-12 rounded-md overflow-hidden bg-white p-1' : 'w-12 h-12 rounded-md overflow-hidden bg-transparent';
+            const wrapperClass = isContain ? 'w-12 h-12 rounded-md overflow-hidden bg-white p-1 border border-black/10' : 'w-12 h-12 rounded-md overflow-hidden bg-transparent border border-black/10';
             if (matched) {
               return (
                 <div className={wrapperClass}>
