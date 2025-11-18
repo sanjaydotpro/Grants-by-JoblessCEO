@@ -51,7 +51,7 @@ export default function RootLayout({
                 <Link href="/labspaces" className="text-sm text-black hover:text-black px-3 py-1.5 rounded-full">
                   Labspaces
                 </Link>
-                <Link href="/my-grants" className="inline-flex">
+                <Link href="https://whop.com/jobless-ceo/" target="_blank" rel="noopener noreferrer" className="inline-flex">
                   <Button variant="link" className="rounded-full h-9 px-4 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline">Join Community</Button>
                 </Link>
               </div>
