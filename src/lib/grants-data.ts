@@ -863,7 +863,7 @@ export const grantsData: Grant[] = [
     deadline: "Rolling",
     category: "Entrepreneurship",
     location: "Global",
-    image: "https://chopped.vc/favicon.ico",
+    image: "/images/Chopped VC.png",
     description: "Backs ‘chopped’ founders via the Genesis Fund — gritty builders who are too early for traditional investors. Supports creativity, ambition, and relentless execution.",
     eligibility: ["Early-stage founders", "High grit/commitment", "Ambitious projects"],
     applicationLink: "https://chopped.vc/",
