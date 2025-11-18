@@ -130,7 +130,7 @@ export default function HackerHousesPage() {
                       <TableCell>
                         <div className="flex items-center gap-3">
                           {houseImages[h.name.toLowerCase()] ? (
-                            <Image src={houseImages[h.name.toLowerCase()]} alt={h.name} width={36} height={36} className="w-9 h-9 rounded-md object-cover" />
+                            <Image src={houseImages[h.name.toLowerCase()]} alt={h.name} width={36} height={36} className="w-9 h-9 rounded-md object-cover border border-black/10" />
                           ) : (
                             <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{h.name.slice(0, 1)}</div>
                           )}
@@ -165,7 +165,7 @@ export default function HackerHousesPage() {
                 <button key={h.id} onClick={() => router.push(`/hacker-houses/${h.id}`)} className="w-full text-left bg-white/90 backdrop-blur-xl rounded-2xl border border-black/10 p-4">
                   <div className="flex items-center gap-3">
                     {houseImages[h.name.toLowerCase()] ? (
-                      <Image src={houseImages[h.name.toLowerCase()]} alt={h.name} width={36} height={36} className="w-9 h-9 rounded-md object-cover" />
+                      <Image src={houseImages[h.name.toLowerCase()]} alt={h.name} width={36} height={36} className="w-9 h-9 rounded-md object-cover border border-black/10" />
                     ) : (
                       <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{h.name.slice(0, 1)}</div>
                     )}

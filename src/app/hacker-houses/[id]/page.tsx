@@ -35,7 +35,7 @@ export default function HackerHouseDetailPage() {
       <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-28 pb-4">
         <div className="flex items-center gap-3 mb-6">
           {houseImages[house.name.toLowerCase()] ? (
-            <Image src={houseImages[house.name.toLowerCase()]} alt={house.name} width={48} height={48} className="w-12 h-12 rounded-md object-cover" />
+            <Image src={houseImages[house.name.toLowerCase()]} alt={house.name} width={48} height={48} className="w-12 h-12 rounded-md object-cover border border-black/10" />
           ) : (
             <div className="w-12 h-12 rounded-md bg-black flex items-center justify-center text-white font-bold">{house.name.slice(0, 2)}</div>
           )}
