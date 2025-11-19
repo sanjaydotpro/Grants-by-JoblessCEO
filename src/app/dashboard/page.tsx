@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { grantsData } from '@/lib/grants-data';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -71,7 +71,9 @@ import choppedVCLogo from '../../../images/Chopped VC.png';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState('');
+  const searchParams = useSearchParams();
+  const initialQ = searchParams.get('q') || '';
+  const [searchQuery, setSearchQuery] = useState(initialQ);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [email, setEmail] = useState('');
@@ -138,6 +140,8 @@ export default function DashboardPage() {
     'techyon microgrants': techyonImg,
     'chopped vc': choppedVCLogo,
   };
+
+  
 
   const filteredAndSortedGrants = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
