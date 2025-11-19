@@ -274,6 +274,73 @@ export default function GrantDetailPage() {
                 <li>Share links to work, prototypes, or documentation.</li>
               </ol>
             </div>
+
+            {grant.id === "1" && (
+              <>
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Quick Facts</h2>
+                  <ul className="mt-2 space-y-2 list-disc pl-5 text-gray-700">
+                    <li>Type: Non-dilutive grant ($500–$50,000)</li>
+                    <li>Eligibility: Age 14+, global; especially for student founders, dropouts, and young rebels</li>
+                    <li>Process: Rolling applications, apply any time</li>
+                    <li>Contact: medici@1517fund.com</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Mission</h2>
+                  <p className="text-gray-700 mt-2 leading-relaxed">1517 Medici backs bold, contrarian thinkers and builders who refuse to follow the crowd. If you dream of changing the world outside the classroom, or have a project your school doesn’t get—this grant is made for you. Extra points for rule-breakers.</p>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">What’s Funded</h2>
+                  <p className="text-gray-700 mt-2 leading-relaxed">Experimental tech, creative hacks, student startups, garage projects—if your big idea turns “why?” into “why not?!”, it’s welcome here. Moonshots and wild pivots encouraged.</p>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Key Questions</h2>
+                  <ul className="mt-2 space-y-2 list-disc pl-5 text-gray-700">
+                    <li>Personal Story: How did you get here and why are you building this?</li>
+                    <li>Contrarian View: Which mainstream idea do you disagree with—or a “normal” idea you’ll defend fiercely?</li>
+                    <li>Project Proposal: Problem, your novel solution, brief budget, real-world impact.</li>
+                  </ul>
+                  <p className="text-gray-700 mt-2">Tips: Speak plainly, show hustle, and be authentic.</p>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Process</h2>
+                  <ul className="mt-2 space-y-2 list-disc pl-5 text-gray-700">
+                    <li>Submit the online form (short, no long essays)</li>
+                    <li>Response in days to a couple of weeks; fast follow-ups welcome</li>
+                    <li>Casual video interview—hoodies and pets allowed</li>
+                    <li>Decision via email or DM, often right after the call</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Tips From Recipients</h2>
+                  <p className="text-gray-700 mt-2 leading-relaxed">Be honest, be bold, and highlight why your project can’t exist inside a traditional classroom. Show momentum and your drive to learn.</p>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Examples</h2>
+                  <ul className="mt-2 space-y-2 list-disc pl-5 text-gray-700">
+                    <li>Sydney: Built an open-source lab in her garage</li>
+                    <li>Max: Ran a hackathon from his bedroom, funded by 1517</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Interview Prep</h2>
+                  <p className="text-gray-700 mt-2 leading-relaxed">Read Paul Graham, watch stories about dropout founders, and be yourself—1517 loves seeing your unique vision shine.</p>
+                </div>
+
+                <div className="bg-white rounded-xl border border-black/10 p-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Post-Award</h2>
+                  <p className="text-gray-700 mt-2 leading-relaxed">Simple agreement, fast funding. Send annual updates (bonus points for memes). Use the funds boldly—aim for impact.</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
 

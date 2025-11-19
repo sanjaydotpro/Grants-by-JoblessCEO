@@ -1,7 +1,4 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import React from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,79 +17,32 @@ function toSlug(s: string) {
   return s.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
-export default function LabspaceDetailPage() {
-  const params = useParams();
-  const slug = Array.isArray(params?.slug) ? params.slug[0] : (params?.slug as string);
-  const [lab, setLab] = useState<Lab | null>(null);
-  const [loaded, setLoaded] = useState(false);
+export const revalidate = 3600;
 
-  useEffect(() => {
-    const url = "https://docs.google.com/spreadsheets/d/1m9zB0EDYPYDxPnadnyJlpLpI4zx8voQ2JTkqV2xUQes/export?format=csv";
-    const parseCsv = (text: string) => {
-      const rows: string[][] = [];
-      let row: string[] = [];
-      let field = "";
-      let inQuotes = false;
-      for (let i = 0; i < text.length; i++) {
-        const c = text[i];
-        if (inQuotes) {
-          if (c === '"') {
-            if (text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; }
-          } else { field += c; }
-        } else {
-          if (c === '"') { inQuotes = true; }
-          else if (c === ',') { row.push(field); field = ""; }
-          else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ""; }
-          else if (c === '\r') { }
-          else { field += c; }
-        }
-      }
-      if (field.length > 0 || row.length > 0) { row.push(field); rows.push(row); }
-      return rows;
-    };
-    fetch(url)
-      .then((r) => r.text())
-      .then((text) => {
-        const rows = parseCsv(text);
-        if (!rows.length) { setLoaded(true); return; }
-        const header = rows[0].map((h) => h.trim().toLowerCase());
-        const idx = (k: string) => header.indexOf(k);
-        const iName = idx("lab name");
-        const iLocation = idx("city/state");
-        const iCountry = idx("country");
-        const iWebsite = idx("website");
-        const iSpecialty = idx("lab speciality");
-        const iType = idx("lab type");
-        const found = rows.slice(1).find((r) => toSlug(r[iName] || "") === slug);
-        if (!found) { setLoaded(true); return; }
-        const specialty = (found[iSpecialty] || "").split(/[,;|]/).map((t) => t.trim()).filter(Boolean);
-        const type = (found[iType] || "").split(/[,;|]/).map((t) => t.trim()).filter(Boolean);
-        setLab({
-          name: found[iName] || "",
-          location: found[iLocation] || "",
-          country: found[iCountry] || "",
-          website: found[iWebsite] || "",
-          specialty,
-          type,
-        });
-        setLoaded(true);
-      })
-      .catch(() => { setLoaded(true); });
-  }, [slug]);
-
-  if (!loaded) {
-    return (
-      <div className="min-h-screen bg-background">
-        <div className="max-w-7xl mx-auto px-6 py-24">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold">Loading...</h1>
-          </div>
-        </div>
-      </div>
-    );
+export default async function LabspaceDetailPage({ params }: { params: { slug: string } }) {
+  const url = "https://docs.google.com/spreadsheets/d/1mK5h3-TOgt6wL2Wx-Tf3nkL7F_EpJSfhcUjTlT647jQ/export?format=csv";
+  const res = await fetch(url, { next: { revalidate } });
+  const text = await res.text();
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = "";
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; }
+      } else { field += c; }
+    } else {
+      if (c === '"') { inQuotes = true; }
+      else if (c === ',') { row.push(field); field = ""; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ""; }
+      else if (c === '\r') { }
+      else { field += c; }
+    }
   }
-
-  if (!lab) {
+  if (field.length > 0 || row.length > 0) { row.push(field); rows.push(row); }
+  if (!rows.length) {
     return (
       <div className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto px-6 py-24">
@@ -106,6 +56,39 @@ export default function LabspaceDetailPage() {
       </div>
     );
   }
+  const header = rows[0].map((h) => h.trim().toLowerCase());
+  const idx = (k: string) => header.indexOf(k);
+  const iName = idx("lab name");
+  const iLocation = idx("city/state");
+  const iCountry = idx("country");
+  const iWebsite = idx("website");
+  const iSpecialty = idx("lab speciality");
+  const iType = idx("lab type");
+  const found = rows.slice(1).find((r) => toSlug(r[iName] || "") === params.slug);
+  if (!found) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="max-w-7xl mx-auto px-6 py-24">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold">Lab not found</h1>
+            <Link href="/labspaces" className="inline-flex mt-4">
+              <Button className="rounded-full h-10 px-4 bg-white text-black border border-black/10">Back to Labspaces</Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  const specialty = (found[iSpecialty] || "").split(/[,;|]/).map((t) => t.trim()).filter(Boolean);
+  const type = (found[iType] || "").split(/[,;|]/).map((t) => t.trim()).filter(Boolean);
+  const lab: Lab = {
+    name: found[iName] || "",
+    location: found[iLocation] || "",
+    country: found[iCountry] || "",
+    website: found[iWebsite] || "",
+    specialty,
+    type,
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -143,8 +126,10 @@ export default function LabspaceDetailPage() {
                 </div>
               </div>
               <div className="mt-4">
-                <Button onClick={() => window.open(lab.website, "_blank")} className="rounded-xl h-11 px-5 bg-white text-black border border-black/10 hover:bg-white/90">
-                  Visit Website <ExternalLink className="w-4 h-4 ml-2" />
+                <Button asChild className="rounded-xl h-11 px-5 bg-white text-black border border-black/10 hover:bg-white/90">
+                  <Link href={lab.website} target="_blank" rel="noopener noreferrer">
+                    Visit Website <ExternalLink className="w-4 h-4 ml-2" />
+                  </Link>
                 </Button>
               </div>
             </div>
