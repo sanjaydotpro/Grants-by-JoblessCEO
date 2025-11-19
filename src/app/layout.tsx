@@ -5,6 +5,7 @@ import favicon from "../../images/favicon.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Menu } from "lucide-react";
 import { Inter } from "next/font/google";
 
@@ -64,7 +65,15 @@ export default function RootLayout({
                       <span className="sr-only">Open menu</span>
                     </Button>
                   </summary>
-                  <div className="absolute right-0 mt-2 bg-white rounded-2xl border border-black/10 shadow-sm p-2 min-w-[200px] z-50">
+                  <div className="absolute right-0 mt-2 bg-white rounded-2xl border border-black/10 shadow-sm p-2 min-w-[220px] z-50">
+                    <form action="/dashboard" method="get" className="p-2">
+                      <Input
+                        name="q"
+                        placeholder="Search grants"
+                        aria-label="Search grants"
+                        className="bg-white border border-black/10 rounded-full h-9 px-3"
+                      />
+                    </form>
                     <Link href="/" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Home</Link>
                     <Link href="/dashboard" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Grants</Link>
                     <Link href="/hacker-houses" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Hacker Houses</Link>
