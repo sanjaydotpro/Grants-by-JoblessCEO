@@ -5,6 +5,7 @@ import favicon from "../../images/favicon.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
@@ -38,7 +39,7 @@ export default function RootLayout({
                 </div>
                 <span className="text-base md:text-lg font-semibold text-black">JoblessCEO</span>
               </Link>
-              <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2">
                 <Link href="/" className="text-sm text-black hover:text-black px-3 py-1.5 rounded-full">
                   Home
                 </Link>
@@ -54,6 +55,25 @@ export default function RootLayout({
                 <Link href="https://whop.com/jobless-ceo/" target="_blank" rel="noopener noreferrer" className="inline-flex">
                   <Button variant="link" className="rounded-full h-9 px-4 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline">Join Community</Button>
                 </Link>
+              </div>
+              <div className="md:hidden">
+                <details className="relative">
+                  <summary className="list-none">
+                    <Button variant="link" className="rounded-full h-9 px-3 text-black">
+                      <Menu className="w-5 h-5" />
+                      <span className="sr-only">Open menu</span>
+                    </Button>
+                  </summary>
+                  <div className="absolute right-0 mt-2 bg-white rounded-2xl border border-black/10 shadow-sm p-2 min-w-[200px] z-50">
+                    <Link href="/" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Home</Link>
+                    <Link href="/dashboard" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Grants</Link>
+                    <Link href="/hacker-houses" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Hacker Houses</Link>
+                    <Link href="/labspaces" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Labspaces</Link>
+                    <Link href="https://whop.com/jobless-ceo/" target="_blank" rel="noopener noreferrer" className="block mt-1">
+                      <Button variant="link" className="w-full rounded-full h-9 px-4 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline">Join Community</Button>
+                    </Link>
+                  </div>
+                </details>
               </div>
             </div>
           </nav>
