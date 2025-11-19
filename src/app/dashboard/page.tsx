@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { Suspense, useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { grantsData } from '@/lib/grants-data';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
@@ -69,7 +69,7 @@ import stochasticImg from '../../../images/Stochastic Labs Summer Residency.webp
 import techyonImg from '../../../images/Techyon Microgrants.png';
 import choppedVCLogo from '../../../images/Chopped VC.png';
 
-export default function DashboardPage() {
+function DashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialQ = searchParams.get('q') || '';
@@ -457,5 +457,13 @@ export default function DashboardPage() {
         </section>
       </main>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div className="sr-only">Loading</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
