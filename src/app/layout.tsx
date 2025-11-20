@@ -60,12 +60,12 @@ export default function RootLayout({
               </div>
               <div className="md:hidden">
                 <details className="relative">
-                  <summary className="list-none">
-                    <Button variant="link" className="rounded-full h-9 px-3 text-black">
+                  <Button variant="link" asChild className="rounded-full h-9 px-3 text-black">
+                    <summary className="list-none">
                       <Menu className="w-5 h-5" />
                       <span className="sr-only">Open menu</span>
-                    </Button>
-                  </summary>
+                    </summary>
+                  </Button>
                   <div className="absolute right-0 mt-2 bg-white rounded-2xl border border-black/10 shadow-sm p-2 min-w-[220px] z-50">
                     <form action="/dashboard" method="get" className="p-2">
                       <Input
@@ -136,15 +136,8 @@ export default function RootLayout({
               </div>
             </div>
             <div className="border-t border-black/10 mt-10 pt-6 flex items-center justify-between">
-              <div className="text-gray-600 text-sm">
-                © 2025 · JoblessCEO · All rights reserved · Privacy Policy · San Francisco, CA · Admin Portal
-              </div>
-              <div className="flex items-center gap-4 text-gray-600 text-sm">
-                <Link href="/dashboard" className="hover:text-black">X</Link>
-                <Link href="/dashboard" className="hover:text-black">LinkedIn</Link>
-                <Link href="/dashboard" className="hover:text-black">YouTube</Link>
-                <Link href="/dashboard" className="hover:text-black">Spotify</Link>
-              </div>
+              <div className="text-gray-600 text-sm">© 2025 · JoblessCEO · All rights reserved</div>
+              <div className="text-gray-600 text-sm">made with ❤️ by Akul, Sanjay & Khushal</div>
             </div>
           </div>
         </footer>
