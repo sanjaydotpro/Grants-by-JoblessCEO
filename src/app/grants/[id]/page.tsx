@@ -41,7 +41,7 @@ import schmidtFuturesImg from '../../../../images/Schmidt Futures.jpeg';
 import wtfFundImg from '../../../../images/wtf fund.png';
 import zFellowsImg from '../../../../images/zfellows_logo.jpeg';
 import liftoffImg from '../../../../images/lift off grant.jpeg';
-import localhostImg from '../../../../images/localhost.jpeg';
+import localhostImg from '../../../../images/localhost-logo.png';
 import mergeClubImg from '../../../../images/mergeclub.jpg';
 import vibefundImg from '../../../../images/vibe fund.png';
 import flightSchoolImg from '../../../../images/the flight school.avif';
