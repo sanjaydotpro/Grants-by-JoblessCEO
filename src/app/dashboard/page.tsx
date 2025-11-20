@@ -42,7 +42,7 @@ import schmidtFuturesImg from '../../../images/Schmidt Futures.jpeg';
 import wtfFundImg from '../../../images/wtf fund.png';
 import zFellowsImg from '../../../images/zfellows_logo.jpeg';
 import liftoffImg from '../../../images/lift off grant.jpeg';
-import localhostImg from '../../../images/localhost.jpeg';
+import localhostImg from '../../../images/localhost-logo.png';
 import mergeClubImg from '../../../images/mergeclub.jpg';
 import vibefundImg from '../../../images/vibe fund.png';
 import flightSchoolImg from '../../../images/the flight school.avif';
@@ -276,7 +276,7 @@ function DashboardContent() {
                           const matched = grantImages[key];
                           const isContain = ['inflection grants'].some((s) => key.includes(s));
                           const className = isContain ? 'object-contain object-center' : 'object-cover object-center';
-                          const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5 border border-black/10' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10';
+                          const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5 border border-black/10 flex items-center justify-center' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center';
                           if (matched) {
                             return (
                               <div className={wrapperClass}>
@@ -289,7 +289,7 @@ function DashboardContent() {
                             grant.name.toLowerCase().includes('1517')
                           ) {
                               return (
-                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
+                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
                                   <Image src={logo1517} alt="1517 Fund" width={36} height={36} className="object-cover object-center" />
                                 </div>
                               );
@@ -299,7 +299,7 @@ function DashboardContent() {
                             grant.name.toLowerCase().includes('776')
                           ) {
                               return (
-                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
+                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
                                   <Image src={logo776} alt="776 Foundation" width={36} height={36} className="object-cover object-center" />
                                 </div>
                               );
@@ -309,7 +309,7 @@ function DashboardContent() {
                             grant.provider.toLowerCase().includes('mercatus')
                           ) {
                             return (
-                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
                                 <Image src={emergentLogo} alt="Emergent Ventures" width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
@@ -319,14 +319,14 @@ function DashboardContent() {
                             grant.name.toLowerCase().includes('evm')
                           ) {
                             return (
-                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
                                 <Image src={evmLogo} alt="EVM Capital" width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
                           }
                           if (grant.image) {
                             return (
-                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10">
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
                                 <Image src={grant.image} alt={grant.name} width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
@@ -373,7 +373,7 @@ function DashboardContent() {
                       const matched = grantImages[key];
                       const isContain = ['inflection grants'].some((s) => key.includes(s));
                       const className = isContain ? 'object-contain object-center' : 'object-cover object-center';
-                      const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5 border border-black/10' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10';
+                      const wrapperClass = isContain ? 'w-9 h-9 rounded-md overflow-hidden bg-white p-0.5 border border-black/10 flex items-center justify-center' : 'w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center';
                       if (matched) {
                         return (
                           <div className={wrapperClass}>
