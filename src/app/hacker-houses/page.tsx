@@ -66,11 +66,12 @@ export default function HackerHousesPage() {
     'edge city': require('../../../images/Edge City.svg'),
     'the bridge': require('../../../images/The Bridge.webp'),
     'the residency': require('../../../images/The Residency.png'),
+    'davinci fellowship': require('../../../images/davincifellowship.jpg'),
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 pb-8 mt-24 md:mt-28">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 pb-8 mt-16 md:mt-20">
         <div className="text-left space-y-3">
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">Hacker Houses</h2>
           <p className="text-sm md:text-base text-gray-600">Residency-style houses for builders. Browse locations, dates, and hosts.</p>
