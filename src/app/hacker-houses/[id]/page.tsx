@@ -142,4 +142,5 @@ export default function HackerHouseDetailPage() {
     'edge city': require('../../../../images/Edge City.svg'),
     'the bridge': require('../../../../images/The Bridge.webp'),
     'the residency': require('../../../../images/The Residency.png'),
+    'davinci fellowship': require('../../../../images/davincifellowship.jpg'),
   };
