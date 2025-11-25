@@ -13,6 +13,15 @@ export interface Grant {
   tags: string[];
 }
 
+import aforeImg from '../../images/afore.jpg';
+import atomicFellowshipImg from '../../images/atomicfellowship.jpg';
+import eireVenturesImg from '../../images/Eire-Venures.jpg';
+import believeAppImg from '../../images/believeapp.jpg';
+import unitaryImg from '../../images/Unitary.jpg';
+import solanaImg from '../../images/solana.jpg';
+import narisettiImg from '../../images/NarisettiGrants.jpeg';
+import kothariImg from '../../images/Kothari.jpg';
+
 export const grantsData: Grant[] = [
   {
     id: "1",
@@ -868,5 +877,118 @@ export const grantsData: Grant[] = [
     eligibility: ["Early-stage founders", "High grit/commitment", "Ambitious projects"],
     applicationLink: "https://chopped.vc/",
     tags: ["Startup", "Venture", "Microgrants"]
+  }
+  ,
+  {
+    id: "62",
+    name: "Afore Grants",
+    provider: "Afore Capital",
+    amount: "$1,000",
+    deadline: "Rolling",
+    category: "Students",
+    location: "United States",
+    image: aforeImg.src,
+    description: "$1,000 non-dilutive grant plus mentorship to help students turn early ideas into conviction with investor and founder support over a 12-week track.",
+    eligibility: ["Students", "Early-stage ideas", "12-week participation"],
+    applicationLink: "https://grants.afore.vc/",
+    tags: ["Students", "Entrepreneurship", "Mentorship"]
+  },
+  {
+    id: "63",
+    name: "Atomic Fellowship",
+    provider: "gradCapital",
+    amount: "$5,000 (+ optional $40,000 investment)",
+    deadline: "Rolling",
+    category: "Science & Engineering",
+    location: "India",
+    image: atomicFellowshipImg.src,
+    description: "No-strings-attached grants for students building science and engineering projects, with an option for additional investment for exceptional teams.",
+    eligibility: ["Students", "Science/engineering projects", "Project-focused"],
+    applicationLink: "https://www.gradcapital.in/atomicfellow/",
+    tags: ["Science", "Engineering", "Students"]
+  },
+  {
+    id: "64",
+    name: "Arraig Microgrants",
+    provider: "Arraig (formerly Éire Ventures)",
+    amount: "$500",
+    deadline: "Rolling",
+    category: "Entrepreneurship",
+    location: "Global",
+    image: eireVenturesImg.src,
+    description: "$500 microgrants for individuals and entrepreneurs focused on international markets, revenue/profitability, and exploratory initiatives.",
+    eligibility: ["Individuals", "Entrepreneurs", "International focus"],
+    applicationLink: "https://arraig.com/micro-grants/",
+    tags: ["Entrepreneurship", "Micro-grants", "Global"]
+  },
+  {
+    id: "65",
+    name: "Believe Builders Fund",
+    provider: "Believe App",
+    amount: "$10,000 - $100,000",
+    deadline: "Rolling",
+    category: "Creators & Builders",
+    location: "Global",
+    image: believeAppImg.src,
+    description: "Fellowship-style funding and resources to help ambitious builders and creators launch and grow projects with community support.",
+    eligibility: ["Ambitious builders", "Creators", "Project momentum"],
+    applicationLink: "https://merge.club/program/believe",
+    tags: ["Creators", "Builders", "Fellowship"]
+  },
+  {
+    id: "66",
+    name: "Unitary Fund Microgrants",
+    provider: "Unitary Fund",
+    amount: "$2,000 - $4,000",
+    deadline: "Rolling",
+    category: "Quantum",
+    location: "Global",
+    image: unitaryImg.src,
+    description: "Microgrants supporting open-source quantum technology projects, education, and tooling across the global quantum ecosystem.",
+    eligibility: ["Individuals or teams", "Quantum projects", "Open-source orientation"],
+    applicationLink: "https://unitary.foundation/",
+    tags: ["Quantum", "Open Source", "Micro-grants"]
+  },
+  {
+    id: "67",
+    name: "Solana Superteam Microgrants",
+    provider: "Solana Ecosystem (Superteam)",
+    amount: "$200 - $10,000",
+    deadline: "Rolling",
+    category: "Crypto",
+    location: "Global",
+    image: solanaImg.src,
+    description: "Equity-free microgrants for early-stage Solana builders, especially in emerging markets, supporting public goods and ecosystem projects.",
+    eligibility: ["Solana builders", "Public goods", "Clear milestones"],
+    applicationLink: "https://merge.club/program/solana",
+    tags: ["Crypto", "Public Goods", "Solana"]
+  },
+  {
+    id: "68",
+    name: "Narisetti Grants",
+    provider: "Akshay Narisetti",
+    amount: "$100 - $1,000",
+    deadline: "Rolling",
+    category: "Hardware & Robotics",
+    location: "Global",
+    image: narisettiImg.src,
+    description: "Microgrants for individual builders developing innovative hardware and robotics projects.",
+    eligibility: ["Individuals only", "Hardware", "Robotics"],
+    applicationLink: "https://merge.club/program/narisettigrants",
+    tags: ["Hardware", "Robotics", "Micro-grants"]
+  },
+  {
+    id: "69",
+    name: "Dr. D.S. Kothari Postdoctoral Fellowship",
+    provider: "UGC (India)",
+    amount: "₹43,800–₹46,500/month + ₹1,00,000 contingency",
+    deadline: "Rolling",
+    category: "Research",
+    location: "India",
+    image: kothariImg.src,
+    description: "Postdoctoral fellowship promoting research in Indian universities, tenable up to three years with monthly stipend and contingency grant.",
+    eligibility: ["PhD holders", "Under 35 years", "Mentor at eligible institution"],
+    applicationLink: "https://ugcdskpdf.unipune.ac.in/",
+    tags: ["Research", "Postdoctoral", "Fellowship"]
   }
 ];
