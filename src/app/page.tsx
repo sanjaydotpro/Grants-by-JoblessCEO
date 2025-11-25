@@ -25,7 +25,7 @@ export default function Home() {
           <Link href="/dashboard" className="inline-flex">
             <Button
               variant="link"
-              className="rounded-full h-11 px-6 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline"
+              className="rounded-full h-11 px-8 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline"
             >
               Here’s the story behind the JoblessCEO
             </Button>
@@ -77,7 +77,7 @@ export default function Home() {
 
       <section className="max-w-4xl mx-auto px-6 mt-20 md:mt-24 text-center">
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">
-          Explore 30+ Programs Like These
+          Explore 100+ Real world Programs
         </h2>
         <p className="mt-4 text-gray-600 text-base md:text-lg leading-relaxed">
           From established programs like Emergent Ventures and 1517 Fund to newer initiatives like 776 Fellowship,
