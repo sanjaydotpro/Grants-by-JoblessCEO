@@ -69,6 +69,14 @@ import techyonImg from '../../../../images/Techyon Microgrants.png';
 import mercatusImg from '../../../../images/MercatusCenter.jpg';
 import evmLogo from '../../../../images/evm capital.avif';
 import choppedVCLogo from '../../../../images/Chopped VC.png';
+import aforeImg from '../../../../images/afore.jpg';
+import atomicFellowshipImg from '../../../../images/atomicfellowship.jpg';
+import eireVenturesImg from '../../../../images/Eire-Venures.jpg';
+import believeAppImg from '../../../../images/believeapp.jpg';
+import unitaryImg from '../../../../images/Unitary.jpg';
+import solanaImg from '../../../../images/solana.jpg';
+import narisettiImg from '../../../../images/NarisettiGrants.jpeg';
+import kothariImg from '../../../../images/Kothari.jpg';
 
 export default function GrantDetailPage() {
   const params = useParams();
@@ -157,6 +165,14 @@ export default function GrantDetailPage() {
     'survival and flourishing fund': sffImg,
     'stochastic labs summer residency': stochasticImg,
     'techyon microgrants': techyonImg,
+    'afore grants': aforeImg,
+    'atomic fellowship': atomicFellowshipImg,
+    'arraig microgrants': eireVenturesImg,
+    'believe builders fund': believeAppImg,
+    'unitary fund microgrants': unitaryImg,
+    'solana superteam microgrants': solanaImg,
+    'narisetti grants': narisettiImg,
+    'dr. d.s. kothari postdoctoral fellowship': kothariImg,
   };
 
   return (
@@ -165,7 +181,18 @@ export default function GrantDetailPage() {
         <div className="flex items-center gap-3 mb-6">
           {(() => {
             const key = grant.name.trim().toLowerCase();
-            const matched = grantImages[key] || grant.image;
+            let matched = grantImages[key] || null;
+            if (!matched) {
+              if (grant.provider.toLowerCase().includes('afore')) matched = aforeImg;
+              else if (grant.provider.toLowerCase().includes('gradcapital') || key.includes('atomic')) matched = atomicFellowshipImg;
+              else if (grant.provider.toLowerCase().includes('arraig') || grant.provider.toLowerCase().includes('éire')) matched = eireVenturesImg;
+              else if (grant.provider.toLowerCase().includes('believe')) matched = believeAppImg;
+              else if (grant.provider.toLowerCase().includes('unitary')) matched = unitaryImg;
+              else if (grant.provider.toLowerCase().includes('solana')) matched = solanaImg;
+              else if (grant.provider.toLowerCase().includes('akshay narisetti') || key.includes('narisetti')) matched = narisettiImg;
+              else if (grant.provider.toLowerCase().includes('ugc') || key.includes('kothari')) matched = kothariImg;
+              else matched = grant.image;
+            }
             const isContain = ['inflection grants'].some((s) => key.includes(s));
             const className = isContain ? 'object-contain object-center' : 'object-cover object-center';
             const wrapperClass = isContain ? 'w-12 h-12 rounded-md overflow-hidden bg-white p-1 border border-black/10' : 'w-12 h-12 rounded-md overflow-hidden bg-transparent border border-black/10';
