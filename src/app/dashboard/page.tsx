@@ -68,6 +68,14 @@ import sffImg from '../../../images/Survival and Flourishing Fund.jpeg';
 import stochasticImg from '../../../images/Stochastic Labs Summer Residency.webp';
 import techyonImg from '../../../images/Techyon Microgrants.png';
 import choppedVCLogo from '../../../images/Chopped VC.png';
+import aforeImg from '../../../images/afore.jpg';
+import atomicFellowshipImg from '../../../images/atomicfellowship.jpg';
+import eireVenturesImg from '../../../images/Eire-Venures.jpg';
+import believeAppImg from '../../../images/believeapp.jpg';
+import unitaryImg from '../../../images/Unitary.jpg';
+import solanaImg from '../../../images/solana.jpg';
+import narisettiImg from '../../../images/NarisettiGrants.jpeg';
+import kothariImg from '../../../images/Kothari.jpg';
 
 function DashboardContent() {
   const router = useRouter();
@@ -139,6 +147,14 @@ function DashboardContent() {
     'stochastic labs summer residency': stochasticImg,
     'techyon microgrants': techyonImg,
     'chopped vc': choppedVCLogo,
+    'afore grants': aforeImg,
+    'atomic fellowship': atomicFellowshipImg,
+    'arraig microgrants': eireVenturesImg,
+    'believe builders fund': believeAppImg,
+    'unitary fund microgrants': unitaryImg,
+    'solana superteam microgrants': solanaImg,
+    'narisetti grants': narisettiImg,
+    'dr. d.s. kothari postdoctoral fellowship': kothariImg,
   };
 
   
@@ -321,6 +337,62 @@ function DashboardContent() {
                             return (
                               <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
                                 <Image src={evmLogo} alt="EVM Capital" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('afore')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={aforeImg} alt="Afore Grants" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('gradcapital') || grant.name.toLowerCase().includes('atomic')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={atomicFellowshipImg} alt="Atomic Fellowship" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('arraig') || grant.provider.toLowerCase().includes('éire') || grant.name.toLowerCase().includes('arraig')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={eireVenturesImg} alt="Arraig Microgrants" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('believe')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={believeAppImg} alt="Believe Builders Fund" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('unitary')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={unitaryImg} alt="Unitary Fund" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('solana')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={solanaImg} alt="Solana Superteam" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('akshay narisetti') || grant.name.toLowerCase().includes('narisetti')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={narisettiImg} alt="Narisetti Grants" width={36} height={36} className="object-cover object-center" />
+                              </div>
+                            );
+                          }
+                          if (grant.provider.toLowerCase().includes('ugc') || grant.name.toLowerCase().includes('kothari')) {
+                            return (
+                              <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                <Image src={kothariImg} alt="Kothari Fellowship" width={36} height={36} className="object-cover object-center" />
                               </div>
                             );
                           }
