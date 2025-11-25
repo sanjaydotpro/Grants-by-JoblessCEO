@@ -8,6 +8,8 @@ import React, { useState } from 'react';
 import logo1517 from '../../images/1517.png';
 import logo776 from '../../images/776.jpg';
 import emergentImg from '../../images/MercatusCenter.jpg';
+import nautilusImg from '../../images/Nautilus.jpg';
+import foundryImg from '../../images/Foundry.webp';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -15,18 +17,18 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <section className="max-w-6xl mx-auto px-6 pt-32 md:pt-40 text-center">
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900">
-          We're a club for microgrant recipients working on big ideas.
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 text-balance leading-tight max-w-3xl md:max-w-4xl mx-auto">
+          <span className="block">Wanna work on your wildest idea to change the world?</span>
+          <span className="mt-2 block text-lg md:text-2xl text-gray-700 font-medium">Here’s grants, hacker houses, and labspaces to back you and your vision.</span>
         </h1>
-        <p className="mt-4 text-gray-600 text-base md:text-lg">
-          Meet new technical friends and make progress on your project.
-        </p>
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <Link href="/dashboard">
-            <Button className="rounded-full h-11 px-6 bg-white text-black border border-black/10 hover:bg-white/90">Get a Microgrant</Button>
-          </Link>
-          <Link href="/dashboard">
-            <Button variant="outline" className="rounded-full h-11 px-6 border-black/10 text-black hover:bg-black/5">See grants</Button>
+        <div className="mt-8 flex items-center justify-center">
+          <Link href="/dashboard" className="inline-flex">
+            <Button
+              variant="link"
+              className="rounded-full h-11 px-6 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline"
+            >
+              Here’s the story behind the JoblessCEO
+            </Button>
           </Link>
         </div>
       </section>
@@ -46,26 +48,26 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href="/dashboard" className="block">
+            <Link href="/hacker-houses" className="block">
               <div className="group bg-white rounded-lg border border-black/10 shadow-sm hover:shadow-md transition-transform hover:-translate-y-1 overflow-hidden">
                 <div className="relative aspect-[4/3] bg-black/5">
-                  <Image src={logo1517} alt="1517 Fund" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-center" />
+                  <Image src={nautilusImg} alt="Nautilus" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-center" />
                 </div>
                 <div className="p-5">
-                  <div className="font-semibold text-black">1517 Fund</div>
-                  <div className="text-sm text-gray-600">$6k grants through the Medici Project</div>
+                  <div className="font-semibold text-black">Nautilus</div>
+                  <div className="text-sm text-gray-600">Artist/maker house with patron funding</div>
                 </div>
               </div>
             </Link>
 
-            <Link href="/dashboard" className="block">
+            <Link href="/labspaces" className="block">
               <div className="group bg-white rounded-lg border border-black/10 shadow-sm hover:shadow-md transition-transform hover:-translate-y-1 overflow-hidden">
                 <div className="relative aspect-[4/3] bg-black/5">
-                  <Image src={logo776} alt="776 Fellowship" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-center" />
+                  <Image src={foundryImg} alt="Molecular Foundry" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover object-center" />
                 </div>
                 <div className="p-5">
-                  <div className="font-semibold text-black">776 Fellowship</div>
-                  <div className="text-sm text-gray-600">$100k fellowship for climate change solutions</div>
+                  <div className="font-semibold text-black">Molecular Foundry</div>
+                  <div className="text-sm text-gray-600">Shared lab access and prototyping</div>
                 </div>
               </div>
             </Link>
