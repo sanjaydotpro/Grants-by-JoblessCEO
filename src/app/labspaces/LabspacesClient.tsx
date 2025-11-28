@@ -2,12 +2,14 @@
 
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import localhostImg from "../../../images/localhost-logo.png";
 
 type Labspace = {
   id: string;
@@ -47,7 +49,7 @@ export default function LabspacesClient({ initialLabs }: { initialLabs: Labspace
   }, [labs, searchQuery, categoryFilter, sortBy]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 pb-8 mt-16 md:mt-20">
         <div className="text-left space-y-3">
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">Labspaces</h2>
@@ -55,7 +57,7 @@ export default function LabspacesClient({ initialLabs }: { initialLabs: Labspace
         </div>
       </div>
 
-      <main className="relative max-w-7xl mx-auto px-6 pb-4">
+      <main className="relative max-w-7xl mx-auto px-6 pb-0">
         <div className="mb-8">
           <div className="glass rounded-full border border-black/10 px-3 py-2 flex items-center gap-2 flex-wrap md:flex-nowrap">
             <Search className="text-gray-500 w-5 h-5 ml-1" />
@@ -64,7 +66,7 @@ export default function LabspacesClient({ initialLabs }: { initialLabs: Labspace
               placeholder="Search labspaces, operators, or locations"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 min-w-[160px] bg-transparent border-0 focus:ring-0 px-2 h-10 text-sm md:text-base"
+              className="flex-1 min-w-[160px] bg-transparent border-0 focus:ring-0 focus:border-0 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-none px-2 h-10 text-sm md:text-base"
             />
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
               <SelectTrigger className="rounded-full h-9 px-3 bg-white/60 hover:bg-white/80 backdrop-blur-xl border border-black/10 text-sm focus-visible:ring-0 min-w-[140px]">
@@ -114,7 +116,19 @@ export default function LabspacesClient({ initialLabs }: { initialLabs: Labspace
                     >
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{l.name.slice(0, 1)}</div>
+                          {(() => {
+                            const key = l.name.trim().toLowerCase();
+                            if (key.includes('local host') || key === 'localhost') {
+                              return (
+                                <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                                  <Image src={localhostImg} alt={l.name} width={36} height={36} className="object-cover object-center" />
+                                </div>
+                              );
+                            }
+                            return (
+                              <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{l.name.slice(0, 1)}</div>
+                            );
+                          })()}
                           <div>
                             <div className="font-semibold text-gray-900">{l.name}</div>
                             <div className="text-xs text-gray-600">{l.operator}</div>
@@ -144,7 +158,19 @@ export default function LabspacesClient({ initialLabs }: { initialLabs: Labspace
               {filtered.list.map((l) => (
                 <Link key={l.id} href={`/labspaces/${encodeURIComponent(l.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""))}`} className="block w-full text-left bg-white/90 backdrop-blur-xl rounded-2xl border border-black/10 p-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{l.name.slice(0, 1)}</div>
+                    {(() => {
+                      const key = l.name.trim().toLowerCase();
+                      if (key.includes('local host') || key === 'localhost') {
+                        return (
+                          <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                            <Image src={localhostImg} alt={l.name} width={36} height={36} className="object-cover object-center" />
+                          </div>
+                        );
+                      }
+                      return (
+                        <div className="w-9 h-9 rounded-md bg-black flex items-center justify-center text-white font-bold">{l.name.slice(0, 1)}</div>
+                      );
+                    })()}
                     <div className="flex-1">
                       <div className="font-semibold text-gray-900">{l.name}</div>
                       <div className="text-xs text-gray-600">{l.operator}</div>
@@ -173,7 +199,7 @@ export default function LabspacesClient({ initialLabs }: { initialLabs: Labspace
           </div>
         )}
 
-        <section id="newsletter" className="grid md:grid-cols-2 gap-4 mt-8">
+        <section id="newsletter" className="grid md:grid-cols-2 gap-4 mt-4">
           <div className="glass-panel rounded-xl p-5 shadow-none">
             <h3 className="text-xl font-semibold text-gray-900">Microgrants in your inbox</h3>
             <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips directly in your inbox.</p>

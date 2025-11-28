@@ -1,8 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import localhostImg from "../../../../images/localhost-logo.png";
 
 type Lab = {
   name: string;
@@ -44,7 +47,7 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
   if (field.length > 0 || row.length > 0) { row.push(field); rows.push(row); }
   if (!rows.length) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="bg-background">
         <div className="max-w-7xl mx-auto px-6 py-24">
           <div className="text-center">
             <h1 className="text-2xl font-bold">Lab not found</h1>
@@ -76,10 +79,12 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
         type: ['Coming Soon'],
       };
       return (
-        <div className="min-h-screen bg-background">
-          <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-28 pb-4">
+        <div className="bg-background">
+          <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-28 pb-0">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-md bg-black flex items-center justify-center text-white font-bold">{lab.name.slice(0, 2)}</div>
+              <div className="w-12 h-12 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                <Image src={localhostImg} alt={lab.name} width={48} height={48} className="object-cover object-center" />
+              </div>
               <div>
                 <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">{lab.name}</h1>
                 <p className="text-sm text-gray-600">{lab.location} · {lab.country}</p>
@@ -87,7 +92,7 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="md:col-span-2 space-y-6">
-                <div className="bg-white rounded-xl border border-black/10 p-5">
+                <div className="bg-white rounded-xl border border-black/10 p-5 mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-lg font-semibold">Details</h2>
                     <div className="flex items-center gap-2">
@@ -122,7 +127,7 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
       );
     }
     return (
-      <div className="min-h-screen bg-background">
+      <div className="bg-background">
         <div className="max-w-7xl mx-auto px-6 py-24">
           <div className="text-center">
             <h1 className="text-2xl font-bold">Lab not found</h1>
@@ -147,9 +152,21 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-28 pb-4">
+      <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-28 pb-0">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-md bg-black flex items-center justify-center text-white font-bold">{lab.name.slice(0, 2)}</div>
+          {(() => {
+            const key = lab.name.trim().toLowerCase();
+            if (key.includes('local host') || key === 'localhost') {
+              return (
+                <div className="w-12 h-12 rounded-md overflow-hidden bg-transparent border border-black/10 flex items-center justify-center">
+                  <Image src={localhostImg} alt={lab.name} width={48} height={48} className="object-cover object-center" />
+                </div>
+              );
+            }
+            return (
+              <div className="w-12 h-12 rounded-md bg-black flex items-center justify-center text-white font-bold">{lab.name.slice(0, 2)}</div>
+            );
+          })()}
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">{lab.name}</h1>
             <p className="text-sm text-gray-600">{lab.location} · {lab.country}</p>
@@ -158,7 +175,7 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-6">
-            <div className="bg-white rounded-xl border border-black/10 p-5">
+            <div className="bg-white rounded-xl border border-black/10 p-5 mb-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold">Details</h2>
                 <div className="flex items-center gap-2">
@@ -197,13 +214,25 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
           </div>
         </div>
 
-        <section id="newsletter" className="grid md:grid-cols-2 gap-4 mt-8">
+        <section id="newsletter" className="grid md:grid-cols-2 gap-4 mt-4">
           <div className="glass-panel rounded-xl p-5 shadow-none">
             <h3 className="text-xl font-semibold text-gray-900">Microgrants in your inbox</h3>
             <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips directly in your inbox.</p>
-            <div className="mt-4 flex items-center gap-3">
-              <Button className="rounded-full h-10 px-5 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 border-0">Subscribe</Button>
-            </div>
+            <form action="/api/subscribe" method="POST" encType="multipart/form-data" className="mt-4 flex items-center gap-3">
+              <Input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                className="flex-1 bg-white/70 backdrop-blur-xl border border-black/10 rounded-xl h-11 focus:ring-0 focus:border-black/20"
+              />
+              <Button
+                type="submit"
+                variant="link"
+                className="rounded-full h-10 px-5 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline border-0 backdrop-blur-0 before:opacity-0 shadow-none"
+              >
+                Subscribe
+              </Button>
+            </form>
           </div>
           <div className="glass-panel rounded-xl p-5 shadow-none">
             <h3 className="text-xl font-semibold text-gray-900">Never miss a funding opportunity</h3>

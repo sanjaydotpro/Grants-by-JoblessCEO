@@ -87,7 +87,7 @@ export default function HackerHousesPage() {
               placeholder="Search houses, hosts, or locations"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 min-w-[160px] bg-transparent border-0 focus:ring-0 px-2 h-10 text-sm md:text-base"
+              className="flex-1 min-w-[160px] bg-transparent border-0 focus:ring-0 focus:border-0 focus-visible:ring-0 focus-visible:border-0 focus-visible:outline-none px-2 h-10 text-sm md:text-base"
             />
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
               <SelectTrigger className="rounded-full h-9 px-3 bg-white/60 hover:bg-white/80 backdrop-blur-xl border border-black/10 text-sm focus-visible:ring-0 min-w-[140px]">

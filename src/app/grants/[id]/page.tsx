@@ -258,38 +258,7 @@ export default function GrantDetailPage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-black/10 p-6">
-              <h3 className="text-lg font-semibold text-gray-900">Microgrants in your inbox</h3>
-              <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips.</p>
-              <form
-                onSubmit={async (e) => {
-                  e.preventDefault();
-                  const pagePath = window.location.pathname;
-                  try {
-                    await fetch('/api/subscribe', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ email, page: pagePath }),
-                    });
-                    setSubscribed(true);
-                  } catch (error: any) {
-                    console.error('Error!', error?.message || error);
-                  }
-                }}
-                className="mt-4 flex items-center gap-3"
-              >
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-white/70 backdrop-blur-xl border border-black/10 rounded-xl h-11 focus:ring-0 focus:border-black/20"
-                />
-                <Button type="submit" className="rounded-xl h-11 px-5 bg-white text-black border border-black/10 hover:bg-white/90" disabled={subscribed}>{subscribed ? 'Sent' : 'Subscribe'}</Button>
-              </form>
-              {subscribed && <p className="text-green-700 mt-3 text-sm">Subscribed! We'll keep you posted.</p>}
-            </div>
+
           </div>
 
           <div className="md:col-span-2 space-y-6">
@@ -382,54 +351,7 @@ export default function GrantDetailPage() {
           </div>
         </div>
 
-        <section id="newsletter" className="grid md:grid-cols-2 gap-4 mt-8 pb-4">
-          <div className="glass-panel rounded-xl p-5 shadow-none">
-            <h3 className="text-xl font-semibold text-gray-900">Microgrants in your inbox</h3>
-            <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips directly in your inbox.</p>
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const pagePath = window.location.pathname;
-                try {
-                  await fetch('/api/subscribe', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, page: pagePath }),
-                  });
-                  setSubscribed(true);
-                } catch (error: any) {
-                  console.error('Error!', error?.message || error);
-                }
-              }}
-              className="mt-4 flex items-center gap-3"
-            >
-              <Input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-white/70 backdrop-blur-xl border border-black/10 rounded-xl h-11 focus:ring-0 focus:border-black/20"
-              />
-              <Button
-                type="submit"
-                variant="link"
-                className="rounded-full h-10 px-5 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline border-0 backdrop-blur-0 before:opacity-0 shadow-none"
-                disabled={subscribed}
-              >
-                {subscribed ? 'Sent' : 'Subscribe'}
-              </Button>
-            </form>
-            {subscribed && (
-              <p className="text-green-700 mt-3 text-sm">Subscribed! We'll keep you posted.</p>
-            )}
-          </div>
 
-          <div className="glass-panel rounded-xl p-5 shadow-none">
-            <h3 className="text-xl font-semibold text-gray-900">Never miss a funding opportunity</h3>
-            <p className="text-gray-600 mt-2">Subscribe to our newsletter to receive updates when new microgrants and fellowship programs are added. We'll also keep you informed about application deadlines and success stories from previous grantees.</p>
-          </div>
-        </section>
       </div>
     </div>
   );
