@@ -77,13 +77,9 @@ export default function Home() {
 
       <section className="max-w-4xl mx-auto px-6 mt-20 md:mt-24 text-center">
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">
-          Explore 100+ Real world Programs
+          Explore 100+ Real world Programs & Builder
         </h2>
-        <p className="mt-4 text-gray-600 text-base md:text-lg leading-relaxed">
-          From established programs like Emergent Ventures and 1517 Fund to newer initiatives like 776 Fellowship,
-          we've curated detailed guides for each opportunity. Discover funding amounts, eligibility criteria, and
-          application tips from past recipients.
-        </p>
+        <p className="mt-4 text-gray-600 text-base md:text-lg leading-relaxed">From Emergent Ventures to 1517 Fund and new initiatives like Localhost, we map every opportunity online. Discover grants, houses, labs, and builders creating cool stuff.​</p>
       </section>
 
       <section className="relative max-w-7xl mx-auto px-6 pb-4 mt-16">
