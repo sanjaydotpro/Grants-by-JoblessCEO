@@ -103,35 +103,33 @@ export default function RootLayout({
                 <div className="text-sm font-semibold text-gray-900 mb-4">Microgrants</div>
                 <div className="space-y-2 text-sm text-gray-600">
                   <Link href="/grants/1" className="block hover:text-black">1517's Medici Grant</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Emergent Ventures</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Merge Grant</Link>
+                  <Link href="/grants/13" className="block hover:text-black">Emergent Ventures</Link>
+                  <Link href="/grants/46" className="block hover:text-black">Merge Grant</Link>
                   <Link href="/grants/25" className="block hover:text-black">OSV Fellowship</Link>
                 </div>
               </div>
               <div>
-                <div className="text-sm font-semibold text-gray-900 mb-4">Community</div>
+                <div className="text-sm font-semibold text-gray-900 mb-4">Hacker Houses</div>
                 <div className="space-y-2 text-sm text-gray-600">
-                  <Link href="/dashboard" className="block hover:text-black">ODF</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Solo Founders</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Builders Who Run</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Landing Club</Link>
+                  <Link href="/hacker-houses/hh-nautilus" className="block hover:text-black">Nautilus</Link>
+                  <Link href="/hacker-houses/hh-fr8" className="block hover:text-black">FR8</Link>
+                  <Link href="/hacker-houses/hh-aevitas" className="block hover:text-black">Aevitas House</Link>
+                  <Link href="/hacker-houses/hh-the-bridge" className="block hover:text-black">The Bridge</Link>
                 </div>
               </div>
               <div>
-                <div className="text-sm font-semibold text-gray-900 mb-4">Resources</div>
+                <div className="text-sm font-semibold text-gray-900 mb-4">Labspaces</div>
                 <div className="space-y-2 text-sm text-gray-600">
-                  <Link href="/dashboard" className="block hover:text-black">Microgrant Guide</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Podcast</Link>
-                  <Link href="/dashboard#newsletter" className="block hover:text-black">Newsletter</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Looking For Grants</Link>
+                  <Link href="/labspaces/soundbio-lab" className="block hover:text-black">SoundBio Lab</Link>
+                  <Link href="/labspaces/stanford-nanofabrication-facility" className="block hover:text-black">Stanford Nanofabrication Facility</Link>
+                  <Link href="/labspaces/tinkermill" className="block hover:text-black">TinkerMill</Link>
+                  <Link href="/labspaces/velocity" className="block hover:text-black">Velocity</Link>
                 </div>
               </div>
               <div>
-                <div className="text-sm font-semibold text-gray-900 mb-4">Get Involved</div>
+                <div className="text-sm font-semibold text-gray-900 mb-4">Add Grants</div>
                 <div className="space-y-2 text-sm text-gray-600">
-                  <Link href="/dashboard" className="block hover:text-black">Apply to Merge</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Start your own microgrant</Link>
-                  <Link href="/dashboard" className="block hover:text-black">Looking for Grants</Link>
+                  <Link href="https://forms.gle/4TWgHe9RghVFQnKg8" target="_blank" rel="noopener noreferrer" className="block hover:text-black">Submit a Grant</Link>
                 </div>
               </div>
             </div>

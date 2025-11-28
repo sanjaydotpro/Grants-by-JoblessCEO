@@ -104,13 +104,25 @@ export default function HackerHouseDetailPage() {
             <h3 className="text-xl font-semibold text-gray-900">Microgrants in your inbox</h3>
             <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips directly in your inbox.</p>
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
+                const pagePath = window.location.pathname;
+                try {
+                  await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: (e.currentTarget as HTMLFormElement).email?.value || '', page: pagePath }),
+                  });
+                  setSubscribed(true);
+                } catch (error: any) {
+                  console.error('Error!', error?.message || error);
+                }
               }}
               className="mt-4 flex items-center gap-3"
             >
               <Input
                 type="email"
+                name="email"
                 placeholder="Enter your email"
                 className="flex-1 bg-white/70 backdrop-blur-xl border border-black/10 rounded-xl h-11 focus:ring-0 focus:border-black/20"
               />
