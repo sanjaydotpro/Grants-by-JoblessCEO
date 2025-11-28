@@ -1,7 +1,11 @@
 {
     "name": "app",
     "version": "0.1.0",
-    "private": true,
+  "private": true,
+  "engines": {
+    "node": ">=18 <21"
+  },
+  "packageManager": "npm@10",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
