@@ -66,6 +66,61 @@ export default async function LabspaceDetailPage({ params }: { params: { slug: s
   const iType = idx("lab type");
   const found = rows.slice(1).find((r) => toSlug(r[iName] || "") === params.slug);
   if (!found) {
+    if (params.slug === 'localhost') {
+      const lab: Lab = {
+        name: 'Localhost',
+        location: 'Bangalore, Karnataka',
+        country: 'India',
+        website: '',
+        specialty: ['Community', 'Prototyping'],
+        type: ['Coming Soon'],
+      };
+      return (
+        <div className="min-h-screen bg-background">
+          <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-28 pb-4">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-md bg-black flex items-center justify-center text-white font-bold">{lab.name.slice(0, 2)}</div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">{lab.name}</h1>
+                <p className="text-sm text-gray-600">{lab.location} · {lab.country}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-2 space-y-6">
+                <div className="bg-white rounded-xl border border-black/10 p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-semibold">Details</h2>
+                    <div className="flex items-center gap-2">
+                      {lab.specialty.slice(0, 3).map((t) => (
+                        <Badge key={t} className="bg-black/5 text-black border border-black/10">{t}</Badge>
+                      ))}
+                      {lab.type.slice(0, 2).map((t) => (
+                        <Badge key={t} className="bg-black/5 text-black border border-black/10">{t}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="rounded-lg border border-black/10 p-3">
+                      <div className="text-xs text-gray-500">Location</div>
+                      <div className="text-gray-900 font-semibold">{lab.location}</div>
+                    </div>
+                    <div className="rounded-lg border border-black/10 p-3">
+                      <div className="text-xs text-gray-500">Country</div>
+                      <div className="text-gray-900 font-semibold">{lab.country}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <Link href="/labspaces" className="inline-flex">
+                  <Button variant="link" className="rounded-full h-10 px-4 bg-white text-black border border-black/10"> <ArrowLeft className="w-4 h-4 mr-2" /> Back to Labspaces</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto px-6 py-24">
