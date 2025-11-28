@@ -262,20 +262,31 @@ export default function GrantDetailPage() {
               <h3 className="text-lg font-semibold text-gray-900">Microgrants in your inbox</h3>
               <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips.</p>
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  if (email.trim()) setSubscribed(true);
+                  const pagePath = window.location.pathname;
+                  try {
+                    await fetch('/api/subscribe', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ email, page: pagePath }),
+                    });
+                    setSubscribed(true);
+                  } catch (error: any) {
+                    console.error('Error!', error?.message || error);
+                  }
                 }}
                 className="mt-4 flex items-center gap-3"
               >
                 <Input
                   type="email"
+                  name="email"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 bg-white/70 backdrop-blur-xl border border-black/10 rounded-xl h-11 focus:ring-0 focus:border-black/20"
                 />
-                <Button type="submit" className="rounded-xl h-11 px-5 bg-white text-black border border-black/10 hover:bg-white/90">Subscribe</Button>
+                <Button type="submit" className="rounded-xl h-11 px-5 bg-white text-black border border-black/10 hover:bg-white/90" disabled={subscribed}>{subscribed ? 'Sent' : 'Subscribe'}</Button>
               </form>
               {subscribed && <p className="text-green-700 mt-3 text-sm">Subscribed! We'll keep you posted.</p>}
             </div>
@@ -376,16 +387,25 @@ export default function GrantDetailPage() {
             <h3 className="text-xl font-semibold text-gray-900">Microgrants in your inbox</h3>
             <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips directly in your inbox.</p>
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                if (email.trim()) {
+                const pagePath = window.location.pathname;
+                try {
+                  await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, page: pagePath }),
+                  });
                   setSubscribed(true);
+                } catch (error: any) {
+                  console.error('Error!', error?.message || error);
                 }
               }}
               className="mt-4 flex items-center gap-3"
             >
               <Input
                 type="email"
+                name="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -395,8 +415,9 @@ export default function GrantDetailPage() {
                 type="submit"
                 variant="link"
                 className="rounded-full h-10 px-5 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline border-0 backdrop-blur-0 before:opacity-0 shadow-none"
+                disabled={subscribed}
               >
-                Subscribe
+                {subscribed ? 'Sent' : 'Subscribe'}
               </Button>
             </form>
             {subscribed && (
