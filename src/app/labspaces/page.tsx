@@ -55,5 +55,17 @@ export default async function LabspacesPage() {
       link: website,
     };
   }).filter((l) => l.name);
-  return <LabspacesClient initialLabs={data} />;
+  const extraLabs = [
+    {
+      id: 'ls-extra-localhost',
+      name: 'Localhost',
+      operator: 'Localhost',
+      access: 'Coming Soon',
+      location: 'Bangalore, India',
+      tags: ['India', 'Bangalore', 'Community'],
+      link: '',
+    },
+  ];
+  const merged = [...data, ...extraLabs];
+  return <LabspacesClient initialLabs={merged} />;
 }
