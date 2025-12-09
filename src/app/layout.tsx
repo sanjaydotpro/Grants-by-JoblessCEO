@@ -33,8 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased">
-        <Script src="https://rybbit.kapy.in/api/script.js" data-site-id="ae60d24e94cb" strategy="afterInteractive" defer />
-        <Script src="https://datafa.st/js/script.js" strategy="afterInteractive" defer data-website-id="dfid_rDDnEdOyHp9ayyjAJcVjT" data-domain="enterprisezero.com" />
+        <Script src="https://rybbit.kapy.in/api/script.js" data-site-id="596f3959f462" strategy="afterInteractive" defer />
         <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full px-6">
           <nav className="bg-white rounded-full border border-black/10 max-w-7xl mx-auto px-4 py-2">
             <div className="flex items-center justify-between">
