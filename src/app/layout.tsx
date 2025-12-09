@@ -138,10 +138,11 @@ export default function RootLayout({
             <div className="border-t border-black/10 mt-10 pt-6 flex items-center justify-between">
               <div className="text-gray-600 text-sm">© 2025 · Zero · All rights reserved</div>
               <div className="text-gray-600 text-sm">
-                made with ❤️ by 
-                <Link href="https://x.com/sharmaxakul" target="_blank" rel="noopener noreferrer" className="hover:text-black">Akul</Link>, 
-                <Link href="https://x.com/sanjaydotpro" target="_blank" rel="noopener noreferrer" className="hover:text-black">Sanjay</Link> 
-                & 
+                made with ❤️ by{" "}
+                <Link href="https://x.com/sharmaxakul" target="_blank" rel="noopener noreferrer" className="hover:text-black">Akul</Link>
+                {", "}
+                <Link href="https://x.com/sanjaydotpro" target="_blank" rel="noopener noreferrer" className="hover:text-black">Sanjay</Link>
+                {" & "}
                 <Link href="https://x.com/khushal_davesar" target="_blank" rel="noopener noreferrer" className="hover:text-black">Khushal</Link>
               </div>
             </div>

@@ -86,6 +86,7 @@ function DashboardContent() {
   const [sortBy, setSortBy] = useState('name');
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const grantImages: Record<string, any> = {
     '1517 medici project': logo1517,
@@ -498,14 +499,20 @@ function DashboardContent() {
                 e.preventDefault();
                 const pagePath = window.location.pathname;
                 try {
-                  await fetch('/api/subscribe', {
+                  const res = await fetch('/api/subscribe', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, page: pagePath }),
                   });
-                  setSubscribed(true);
+                  if (res.ok) {
+                    setSubscribed(true);
+                    setError(null);
+                  } else {
+                    setError('Failed to subscribe. Please try again later.');
+                  }
                 } catch (error: any) {
                   console.error('Error!', error?.message || error);
+                  setError('Failed to subscribe. Please try again later.');
                 }
               }}
               className="mt-4 flex items-center gap-3"
@@ -529,6 +536,9 @@ function DashboardContent() {
             </form>
             {subscribed && (
               <p className="text-green-700 mt-3 text-sm">Sent! We'll keep you posted.</p>
+            )}
+            {error && (
+              <p className="text-red-700 mt-3 text-sm">{error}</p>
             )}
           </div>
 
