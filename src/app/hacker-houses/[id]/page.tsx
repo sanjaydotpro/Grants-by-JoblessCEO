@@ -15,6 +15,7 @@ export default function HackerHouseDetailPage() {
   const id = Array.isArray(params?.id) ? params.id[0] : (params?.id as string);
   const house = houses.find((h) => h.id === id);
   const [subscribed, setSubscribed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (!house) {
     return (
@@ -109,14 +110,20 @@ export default function HackerHouseDetailPage() {
                 e.preventDefault();
                 const pagePath = window.location.pathname;
                 try {
-                  await fetch('/api/subscribe', {
+                  const res = await fetch('/api/subscribe', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: (e.currentTarget as HTMLFormElement).email?.value || '', page: pagePath }),
                   });
-                  setSubscribed(true);
+                  if (res.ok) {
+                    setSubscribed(true);
+                    setError(null);
+                  } else {
+                    setError('Failed to subscribe. Please try again later.');
+                  }
                 } catch (error: any) {
                   console.error('Error!', error?.message || error);
+                  setError('Failed to subscribe. Please try again later.');
                 }
               }}
               className="mt-4 flex items-center gap-3"
@@ -135,6 +142,12 @@ export default function HackerHouseDetailPage() {
                 Subscribe
               </Button>
             </form>
+            {subscribed && (
+              <p className="text-green-700 mt-3 text-sm">Subscribed! We'll keep you posted.</p>
+            )}
+            {error && (
+              <p className="text-red-700 mt-3 text-sm">{error}</p>
+            )}
           </div>
 
           <div className="glass-panel rounded-xl p-5 shadow-none">

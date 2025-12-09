@@ -219,6 +219,7 @@ export default async function LabspaceDetailPage({ params }: any) {
             <h3 className="text-xl font-semibold text-gray-900">Microgrants in your inbox</h3>
             <p className="text-gray-600 mt-2">Subscribe to receive new funding opportunities and tips directly in your inbox.</p>
             <form action="/api/subscribe" method="POST" encType="multipart/form-data" className="mt-4 flex items-center gap-3">
+              <input type="hidden" name="page" value="/labspaces" />
               <Input
                 type="email"
                 name="email"
