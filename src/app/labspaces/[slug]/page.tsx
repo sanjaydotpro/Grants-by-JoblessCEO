@@ -22,7 +22,7 @@ function toSlug(s: string) {
 
 export const revalidate = 3600;
 
-export default async function LabspaceDetailPage({ params }: { params: { slug: string } }) {
+export default async function LabspaceDetailPage({ params }: any) {
   const url = "https://docs.google.com/spreadsheets/d/1mK5h3-TOgt6wL2Wx-Tf3nkL7F_EpJSfhcUjTlT647jQ/export?format=csv";
   const res = await fetch(url, { next: { revalidate } });
   const text = await res.text();

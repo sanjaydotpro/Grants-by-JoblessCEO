@@ -13,7 +13,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "JoblessCEO",
+  title: "Zero",
   description: "Discover and manage grants with ease",
   icons: {
     icon: [
@@ -39,7 +39,7 @@ export default function RootLayout({
                 <div className="relative rounded-xl p-2 bg-transparent">
                   <Image src={favicon} alt="Logo" width={36} height={36} className="rounded" />
                 </div>
-                <span className="text-base md:text-lg font-semibold text-black">JoblessCEO</span>
+                <span className="text-base md:text-lg font-semibold text-black">Zero</span>
               </Link>
               <div className="hidden md:flex items-center gap-2">
                 <Link href="/" className="text-sm text-black hover:text-black px-3 py-1.5 rounded-full">
@@ -96,7 +96,7 @@ export default function RootLayout({
               <div className="relative rounded-xl p-2 bg-transparent">
                 <Image src={favicon} alt="Logo" width={36} height={36} className="rounded" />
               </div>
-              <span className="text-base md:text-lg font-semibold text-black">JoblessCEO</span>
+              <span className="text-base md:text-lg font-semibold text-black">Zero</span>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
@@ -134,7 +134,7 @@ export default function RootLayout({
               </div>
             </div>
             <div className="border-t border-black/10 mt-10 pt-6 flex items-center justify-between">
-              <div className="text-gray-600 text-sm">© 2025 · JoblessCEO · All rights reserved</div>
+              <div className="text-gray-600 text-sm">© 2025 · Zero · All rights reserved</div>
               <div className="text-gray-600 text-sm">made with ❤️ by Akul, Sanjay & Khushal</div>
             </div>
           </div>
