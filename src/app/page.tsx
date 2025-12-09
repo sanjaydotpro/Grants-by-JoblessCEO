@@ -22,12 +22,12 @@ export default function Home() {
           <span className="mt-2 block text-lg md:text-2xl text-gray-700 font-medium">Here’s grants, hacker houses, and labspaces to back you and your vision.</span>
         </h1>
         <div className="mt-8 flex items-center justify-center">
-          <Link href="/dashboard" className="inline-flex">
+          <Link href="https://x.com/khushal_davesar/status/1994399333433888913" target="_blank" rel="noopener noreferrer" className="inline-flex">
             <Button
               variant="link"
               className="rounded-full h-11 px-8 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline"
             >
-              Here’s the story behind the JoblessCEO
+              Here’s the story behind Zero
             </Button>
           </Link>
         </div>
