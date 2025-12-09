@@ -54,8 +54,8 @@ export default function RootLayout({
                 <Link href="/labspaces" className="text-sm text-black hover:text-black px-3 py-1.5 rounded-full">
                   Labspaces
                 </Link>
-                <Link href="https://whop.com/jobless-ceo/" target="_blank" rel="noopener noreferrer" className="inline-flex">
-                  <Button variant="link" className="rounded-full h-9 px-4 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline">Join Community</Button>
+                <Link href="https://x.com/khushal_davesar/status/1994399333433888913" target="_blank" rel="noopener noreferrer" className="inline-flex">
+                  <Button variant="link" className="rounded-full h-9 px-4 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline">our story</Button>
                 </Link>
               </div>
               <div className="md:hidden">
@@ -79,8 +79,8 @@ export default function RootLayout({
                     <Link href="/dashboard" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Grants</Link>
                     <Link href="/hacker-houses" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Hacker Houses</Link>
                     <Link href="/labspaces" className="block text-sm text-black px-3 py-2 rounded-md hover:bg-black/5">Labspaces</Link>
-                    <Link href="https://whop.com/jobless-ceo/" target="_blank" rel="noopener noreferrer" className="block mt-1">
-                      <Button variant="link" className="w-full rounded-full h-9 px-4 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline">Join Community</Button>
+                    <Link href="https://x.com/khushal_davesar/status/1994399333433888913" target="_blank" rel="noopener noreferrer" className="block mt-1">
+                      <Button variant="link" className="w-full rounded-full h-9 px-4 bg-[#ff205e] text-white hover:bg-[#ff205e]/90 no-underline hover:no-underline">our story</Button>
                     </Link>
                   </div>
                 </details>
